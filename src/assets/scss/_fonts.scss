@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@mixin font-body{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-display: swap;
+}
+
+//body
+@mixin body-S{
+    @include font-body;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400; 
+}
+@mixin body-M{
+    @include font-body;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400; 
+}
+@mixin body-L{
+    @include font-body;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+}
+
+//subtitle
+@mixin subtitle-S{
+    @include font-body;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 700;
+}
+@mixin subtitle-M{
+    @include font-body;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 700;
+}
+@mixin subtitle-L{
+    @include font-body;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+}
+@mixin subtitle-XL{
+    @include font-body;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 700;
+}
+
+//h4
+@mixin title-h4{
+    @include font-body;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 700;
+}
+
+//h3
+@mixin title-h3{
+    @include font-body;
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: 700;
+}
+
+//h2
+@mixin title-h2{
+    @include font-body;
+    font-size: 28px;
+    line-height: 42px;
+    font-weight: 700;
+}
+//h1
+@mixin title-h1{
+    @include font-body;
+    font-size: 32px;
+    line-height: 48px;
+    font-weight: 700;
+}
