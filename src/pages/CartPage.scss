@@ -3,7 +3,7 @@
 @use '../assets/scss/variables' as *;
 
 .cart-page {
-  margin: 2rem 0;
+  margin: 0 auto ;
   max-width: 1100px;
   padding: 2rem;
   background: var(Surface-100);
@@ -35,7 +35,9 @@
 
 
 .cart-toolbar {
-  @include flex-layout(space-between,center);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 14px 16px;
   background: #fafafa;
   border-bottom: 1px solid #e4e7ec;
