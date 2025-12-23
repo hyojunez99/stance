@@ -1,0 +1,72 @@
+@use '../../assets/scss/fonts' as *;
+@use '../../assets/scss/variables' as *;
+header{
+    width: 100%;
+    background-color: var(--Surface-100);
+    border-top: 2px solid var(--Primary-300);
+    border-bottom: 1px solid var(--Border-100);
+}
+.header-inner{
+    max-width: 1920px;
+    height: 64px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+}
+.logo{
+    @include title-h1;
+    padding-right: 32px;
+    margin-right: 32px;
+    color: var(--Primary-300);
+    border-right: 1px solid var(--Primary-300);
+    a{
+        display: block;
+        letter-spacing: 0.5px;
+    }
+}
+.gnb{
+    flex: 1;
+    padding-right: 32px;
+    margin-right: 32px;
+    border-right: 1px solid var(--Primary-300);
+}
+.util{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-right: 32px;
+    margin-right: 32px;
+    border-right: 1px solid var(--Primary-300);
+    a{
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--Primary-300);
+        &hover{
+            color: var(--Primary-400);
+        }
+    }
+    span{
+        font-size: 24px;
+        color: var(--Primary-300);
+    }
+}
+.icon-group{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.icon-btn{
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--Primary-300);
+    svg{
+        font-size: 32px;
+        stroke-width: 1.6;
+    }
+    &:hover{
+        color: var(--Primary-400);
+    }
+}
