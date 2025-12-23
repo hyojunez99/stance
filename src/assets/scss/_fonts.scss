@@ -26,17 +26,30 @@
     line-height: 24px;
     font-weight: 400;
 }
+@mixin body-LL{
+    @include font-body;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+}
 @mixin body-XL{
     @include font-body;
     font-size: 20px;
     line-height: 36px;
+    font-weight: 400;
+}
+@mixin body-XXL{
+    @include font-body;
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: 400;
 }
 
 //subtitle
 @mixin subtitle-S{
     @include font-body;
-    font-size: 14px;
-    line-height: 22px;
+    font-size: 12px;
+    line-height: 18px;
     font-weight: 700;
 }
 @mixin subtitle-M{
@@ -58,7 +71,7 @@
     font-weight: 700;
 }
 
-//h4
+//h4 
 @mixin title-h4{
     @include font-body;
     font-size: 20px;
