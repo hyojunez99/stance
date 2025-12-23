@@ -1,3 +1,4 @@
+import "../common/Gnb.scss"
 const Gnb = () => {
   return (
     <nav className="gnb">

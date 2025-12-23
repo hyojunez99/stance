@@ -26,6 +26,11 @@
     line-height: 24px;
     font-weight: 400;
 }
+@mixin body-XL{
+    @include font-body;
+    font-size: 20px;
+    line-height: 36px;
+}
 
 //subtitle
 @mixin subtitle-S{

@@ -1,0 +1,13 @@
+@use '../../assets/scss/fonts' as *;
+.gnb ul{
+    display: flex;
+    gap: 32px;
+    li{
+        @include subtitle-M;
+        color: var(--Primary-300);
+        cursor: pointer;
+        &:hover{
+            color: var(--Primary-400);
+        }
+    }
+}
