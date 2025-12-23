@@ -3,15 +3,14 @@
 @use '../assets/scss/variables' as *;
 
 .cart-page {
+  margin: 2rem 0;
   max-width: 1100px;
-  margin: 0 auto;
   padding: 2rem;
   background: var(Surface-100);
 }
 
 .cart-title {
   @include title-h1();
-  margin: 12px 0 22px;
 }
 
 
@@ -36,9 +35,7 @@
 
 
 .cart-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-layout(space-between,center);
   padding: 14px 16px;
   background: #fafafa;
   border-bottom: 1px solid #e4e7ec;
@@ -52,8 +49,8 @@
   color: var(Text-300);
 
   input {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -65,15 +62,15 @@
 .brand {
   @include subtitle-L();
   color: var(static-black);
-  margin-bottom: 6px;
+  margin: 0 0 0.5rem 1rem;
 }
 
 .cart-item {
   display: grid;
   grid-template-columns: 22px 86px 1fr 34px;
-  gap: 12px;
+  gap: 1rem;
   align-items: center;
-  padding: 16px;
+  padding: 1rem;
   border-bottom: 1px solid #eef1f5;
 
   &:last-child {
