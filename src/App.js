@@ -12,8 +12,8 @@ const App = () => {
 
   //장바구니 아이템 임시입니다
   const [cartItems, setCartItems] = useState([
-    { id: 1, title: "테스트 상품", price: 80000, quantity: 1 ,image:"shoes01-1.jpg" },
-    { id: 2, title: "테스트 상품2", price: 129000, quantity: 2,image:"shoes01-1.jpg"},
+    { id: 1, title: "테스트 상품", price: 80000, quantity: 1, image: "shoes01-1.jpg" },
+    { id: 2, title: "테스트 상품2", price: 129000, quantity: 2, image: "shoes01-1.jpg" },
   ]);
   const onUpdateQty = (id, delta) => {
     setCartItems((prev) =>
@@ -33,9 +33,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}/>
-        <Route path="/" element={<MainPage />}/>
-        <Route path="/cart" element={<CartPage />} />
+        <Route element={<Layout />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/cart" element={<CartPage
+          cartItems={cartItems}
+          onUpdateQty={onUpdateQty}
+          onDelete={onDelete} />} />
         <Route path="/category" element={<CategoryPage />} />
       </Routes>
     </BrowserRouter>

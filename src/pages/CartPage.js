@@ -65,7 +65,10 @@ const CartPage = ({ cartItems, onUpdateQty, onDelete }) => {
 
   return (
     <div className="cart-page">
-      <h1 className="cart-title">장바구니</h1>
+      <div className="back" >
+        <p className="back-icon"> ← </p>
+        <p className="cart-title">장바구니</p>
+      </div>
 
       <div className="cart-layout">
         {/* 목록 */}
@@ -95,27 +98,36 @@ const CartPage = ({ cartItems, onUpdateQty, onDelete }) => {
                   </label>
 
                   {/* 이미지 일단 빈칸 */}
-                  <div className="list-img" >
+                  
+
+                  <div className="item-info">
+                    <div className="up">
+                    <div className="list-img" >
                     <img
                       src={require(`../assets/images/Shoes/${item.image}`)}
                       alt={`${item.title} ${item.category}`} />
                   </div>
-
-                  <div className="item-info">
                     <div className="sameline">
-                    <p className="item-title">PACEFY {item.title}</p>  
-                    <button className="remove" onClick={() => onDelete(item.id)}><i className="fa-solid fa-x"></i></button>
+                      <div className="txt">
+                      <p className="item-title">PACEFY {item.title}</p>
+                      <p className="sub-title">subname 들어갈 곳</p>
+                      </div>
+                      <button className="remove" onClick={() => onDelete(item.id)}><i className="fa-solid fa-x"></i></button>
                     </div>
-                    <p className="sub-title">subname 들어갈 곳</p>
+                    
+                    </div>
 
                     <div className="item-row">
-                      <div className="count">
-                        <button className="count-btn" onClick={() => onUpdateQty(item.id, -1)}><i className="fa-solid fa-minus"></i></button>
-                        <span className="count-num">{item.quantity}</span>
-                        <button className="count-btn" onClick={() => onUpdateQty(item.id, +1)}><i className="fa-solid fa-plus"></i></button>
-                      </div>
+
 
                       <div className="prices">
+
+                        <div className="count">
+                          <button className="count-btn" onClick={() => onUpdateQty(item.id, -1)}><i className="fa-solid fa-minus"></i></button>
+                          <span className="count-num">{item.quantity}</span>
+                          <button className="count-btn" onClick={() => onUpdateQty(item.id, +1)}><i className="fa-solid fa-plus"></i></button>
+                          
+                        </div>
                         <p className="sum">₩ {(item.price * item.quantity).toLocaleString()}</p>
                       </div>
                     </div>
@@ -167,6 +179,7 @@ const CartPage = ({ cartItems, onUpdateQty, onDelete }) => {
             <div className="summary-row dashed">
               <span>
                 배송비 <span className="gray-txt">(제주/도서 산간 배송비 포함)</span>
+                <span className="mobile-txt">(묶음배송 적용)</span>
               </span>
               <span>₩ {shippingFee.toLocaleString()}</span>
             </div>
@@ -177,10 +190,10 @@ const CartPage = ({ cartItems, onUpdateQty, onDelete }) => {
               <span>총 결제금액</span>
               <span>₩ {finalTotal.toLocaleString()}</span>
             </div>
-          <div className="order-btn-wrap">
-            <button className="order-btn">
-              총 {totalQty}개 | {finalTotal.toLocaleString()}원 주문하기
-            </button>
+            <div className="order-btn-wrap">
+              <button className="order-btn">
+                총 {totalQty}개 | {finalTotal.toLocaleString()}원 주문하기
+              </button>
             </div>
           </div>
         </aside>
