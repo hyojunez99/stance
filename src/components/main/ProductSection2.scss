@@ -1,5 +1,6 @@
 @use "../../assets/scss/mixins" as *;
 
+//PC버전
 #paceypick {
   width: 100%;
   padding-bottom: 5rem;
@@ -10,6 +11,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 100%;
+
     li {
       cursor: pointer;
 
@@ -111,7 +113,6 @@
       }
       .indi-txt {
         cursor: pointer;
-
         width: 150px;
         p {
           font-size: 1.125rem;
@@ -122,6 +123,89 @@
           white-space: nowrap;
         }
       }
+    }
+  }
+}
+
+// 모바일 버전
+@include mobile {
+  #paceypick {
+    h2 {
+      text-align: center;
+      font-size: 1.25rem;
+    }
+    ul {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      li {
+        .img-wrap {
+          img {
+          }
+          .num {
+          }
+          .heart {
+          }
+        }
+        .best-txt {
+          .title {
+            font-size: 0.75rem;
+          }
+          .sub1 {
+            font-size: 0.875rem;
+          }
+          .price {
+            .original-price {
+              font-size: 0.75rem;
+            }
+            .price-row {
+              .discount {
+                font-size: 1rem;
+                font-weight: 400;
+              }
+              .sale-price {
+                font-size: 1rem;
+                font-weight: 700;
+              }
+            }
+          }
+        }
+      }
+    }
+    .indi-bottom {
+      padding: 0;
+      width: 100%;
+      .indicator {
+        padding: 1rem 2rem;
+        @include flex-layout();
+        background-color: var(--Primary-300);
+        width: 100%;
+        span {
+          display: none;
+          &.active {
+          }
+        }
+        .indi-txt {
+          @include flex-layout();
+          p {
+            color: var(--Static-white);
+          }
+        }
+      }
+    }
+  }
+}
+// 데스크 탑
+@media (max-width: 768px) {
+  #paceypick {
+    ul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+@media (max-width: 375px) {
+  #paceypick {
+    ul {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 }

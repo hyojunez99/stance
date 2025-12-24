@@ -13,7 +13,6 @@ const ProductSection2 = () => {
   return (
     <section id="paceypick">
       <h2>PACEY PICK</h2>
-
       <ul>
         {bestItems.map((item) => {
           const discountPercentage = calculateDiscount(
@@ -27,7 +26,6 @@ const ProductSection2 = () => {
                   src={require(`../../assets/images/Shoes/${item.image}`)}
                   alt={item.sub1}
                 />
-                <h2 className="num">{item.id}</h2>
                 <span className="heart">
                   <FaRegHeart />
                 </span>
@@ -51,7 +49,6 @@ const ProductSection2 = () => {
           );
         })}
       </ul>
-
       <div className="indi-bottom">
         <div className="indicator">
           <span className="active"></span>

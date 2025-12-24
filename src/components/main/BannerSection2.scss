@@ -1,5 +1,6 @@
 @use "../../assets/scss/mixins" as *;
 
+// PC버전
 #banner2 {
   position: relative;
   padding-bottom: 5rem;
@@ -96,6 +97,40 @@
           white-space: nowrap;
         }
       }
+    }
+  }
+}
+
+// 모바일 버전
+@include mobile {
+  #banner2 {
+    .images {
+      @include flex-layout(column, $gap: 0);
+      flex-wrap: wrap;
+      .box1 {
+        img {
+          width: 23rem;
+          height: 23rem;
+        }
+        h2 {
+          font-size: 1.25rem;
+        }
+      }
+      .box2 {
+        img {
+          width: 23rem;
+          height: 23rem;
+        }
+        h2 {
+          font-size: 1.25rem;
+        }
+      }
+    }
+    .btn {
+      display: none;
+    }
+    .indi-bottom {
+      display: none;
     }
   }
 }

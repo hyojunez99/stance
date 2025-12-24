@@ -1,58 +1,89 @@
 @use "../../assets/scss/mixins" as *;
 
+// pc버전
 #event {
-    padding-bottom: 5rem;
-
-  .event-bg{
-  position: relative;
-  padding: 2rem;
-  @include flex-layout(column);
-  background-color: var(--Static-black);
-  color: var(--Static-white);
-  .event-box {
-    @include flex-layout(row, space-between);
-    width: 50%;
-    img {
-      width: 200px;
-      height: 200px;
-    }
-    .event-txt {
-      h2 {
-        font-size: 1.75rem;
-        font-weight: 700;
-        padding-bottom: 1.75rem;
+  padding-bottom: 5rem;
+  .event-bg {
+    position: relative;
+    padding: 2rem;
+    @include flex-layout(column);
+    background-color: var(--Static-black);
+    color: var(--Static-white);
+    .event-box {
+      @include flex-layout(row, space-between);
+      width: 50%;
+      img {
+        width: 200px;
+        height: 200px;
       }
-      p {
-        font-weight: 400;
+      .event-txt {
+        h2 {
+          font-size: 1.75rem;
+          font-weight: 700;
+          padding-bottom: 1.75rem;
+        }
+        p {
+          font-weight: 400;
+        }
       }
     }
-  }
-  > p {
-    font-size: 0.875rem;
-  }
-  .btn {
-    cursor: pointer;
-    width: 100%;
-    position: absolute;
-    top: 40%;
-    left: 0;
-    @include flex-layout(row, space-between);
-    .prev {
-      font-size: 24px;
-      color: var(--Static-white);
-      @include flex-layout;
-      width: 48px;
-      height: 48px;
-      background: rgba(0, 0, 0, 0.2);
+    > p {
+      font-size: 0.875rem;
     }
-    .next {
-      font-size: 24px;
-      color: var(--Static-white);
-      @include flex-layout;
-      width: 48px;
-      height: 48px;
-      background: rgba(0, 0, 0, 0.2);
+    .btn {
+      cursor: pointer;
+      width: 100%;
+      position: absolute;
+      top: 40%;
+      left: 0;
+      @include flex-layout(row, space-between);
+      .prev {
+        font-size: 24px;
+        color: var(--Static-white);
+        @include flex-layout;
+        width: 48px;
+        height: 48px;
+        background: rgba(0, 0, 0, 0.2);
+      }
+      .next {
+        font-size: 24px;
+        color: var(--Static-white);
+        @include flex-layout;
+        width: 48px;
+        height: 48px;
+        background: rgba(0, 0, 0, 0.2);
+      }
     }
   }
 }
+
+// 모바일 버전
+@include mobile {
+  #event {
+    .event-bg {
+      position: relative;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      .event-box {
+        img {
+          display: none;
+        }
+        .event-txt {
+          h2 {
+          }
+          p {
+          }
+        }
+      }
+      > p {
+        padding: 0.25rem 0.75rem;
+        background-color: #333;
+        border-radius: 1.25rem;
+      }
+      .btn {
+        display: none;
+      }
+    }
+  }
 }
