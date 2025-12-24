@@ -11,10 +11,8 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 100%;
-
     li {
       cursor: pointer;
-
       background-color: rgba(245, 245, 245, 1);
       .img-wrap {
         position: relative;
@@ -194,11 +192,10 @@
     }
   }
 }
-// 데스크 탑
 @media (max-width: 768px) {
   #paceypick {
     ul {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 2fr);
     }
   }
 }
