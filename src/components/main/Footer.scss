@@ -1,0 +1,238 @@
+
+.footer-container {
+  width: 100%;
+  border-top: 1.5px solid var(--Primary-300);
+  padding: 80px 0;
+
+  .footer-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .section-info,
+  .section-contact,
+  .section-social {
+    flex: 1;
+    padding: 0 60px;
+  }
+
+  .section-contact,
+  .section-social {
+    border-left: 1px solid var(--Primary-300);
+  }
+  .brand {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 30px;
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  .desc-txt {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.7;
+    // color: rgba($blue, 0.85);
+    margin: 18px 0 0;
+  }
+
+  /* 회사 선택(드롭다운처럼 보이게) */
+  .company-select {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    user-select: none;
+
+    .arrow-icon {
+      font-size: 16px;
+      transform: translateY(1px);
+    }
+  }
+
+  /* 링크 공통 */
+  .nav-links {
+    display: flex;
+    gap: 14px;
+    margin-top: 18px;
+
+    a {
+      font-size: 13px;
+      font-weight: 700;
+    //   color: $blue;
+      text-decoration: none;
+    //   border-bottom: 1px solid $blue;
+      padding-bottom: 2px;
+    }
+  }
+
+  /* 정책 링크는 아래쪽에 조금 더 떨어지게 */
+  .policy-links {
+    margin-top: 22px;
+  }
+
+  /* ---------- 고객센터 ---------- */
+  .section-contact {
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .phone {
+      font-size: 40px;
+      font-weight: 900;
+      margin: 15px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .pc-only-links {
+      display: flex;
+    }
+
+    .mobile-only-links {
+      display: none;
+    }
+  }
+
+  /* ---------- 스토리/SNS ---------- */
+  .section-social {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 240px;
+
+    .story-area {
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .story-link {
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        // color: $blue;
+        white-space: nowrap;
+      }
+    }
+
+    .sns-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+
+      .sns-icons {
+        display: flex;
+        gap: 12px;
+
+        .sns-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+        //   background: $blue;
+          color: #fff;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+
+  .pc-only {
+    display: inline;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
+
+    .footer-inner {
+      flex-direction: column;
+      padding: 0;
+      max-width: 100%;
+    }
+
+    .section-info,
+    .section-contact,
+    .section-social {
+      width: 100%;
+      padding: 40px 24px;
+      border-left: none !important;
+    //   border-bottom: 1px solid rgba($blue, 0.2);
+    }
+
+    .pc-only {
+      display: none;
+    }
+
+    /* 고객센터: 모바일에서는 우측에 QNA 링크 노출 */
+    .section-contact {
+      .mobile-only-links {
+        display: flex;
+        gap: 14px;
+        margin-top: 0;
+        white-space: nowrap;
+      }
+
+      .pc-only-links {
+        display: none;
+      }
+
+      .phone {
+        font-size: 34px;
+      }
+    }
+
+    /* 스토리/SNS: 모바일에서 SNS만 아래 영역으로 분리 + 상단 굵은 선 */
+    .section-social {
+      padding: 0 !important;
+      border-bottom: none !important;
+      min-height: auto;
+
+      .story-area {
+        padding: 40px 24px;
+
+        .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+
+      .sns-area {
+        // border-top: 1.5px solid $blue;
+        padding: 30px 24px 50px;
+        margin-top: 0;
+
+        .sns-icons {
+          margin-top: 0;
+        }
+
+        .title {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+
