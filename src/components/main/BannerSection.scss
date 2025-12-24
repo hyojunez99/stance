@@ -1,119 +1,194 @@
 @use "../../assets/scss/fonts" as *;
-.banner{
+.banner {
     position: relative;
     width: 100%;
-    height: 420px;
+    height: 720px;
     overflow: hidden;
 }
 
-.banner-track{
-    display: flex;
-    width: 500%;
-    height: 100%;
-    transition: transform 0.9s ease-in-out;
+.banner-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    /* 이미지 위아래 흔들림 방지 */
+    background-position-y: 50%;
+
+    transition: transform 0.6s ease;
 }
 
-.banner-slide{
-    width: 100%;
-    flex-shrink: 0;
-    img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
+.banner-bg.current {
+    z-index: 1;
+    transform: translateX(0);
+}
+
+.banner-bg.next {
+    z-index: 0;
+}
+
+/* 오른쪽으로 슬라이드 */
+.banner.slide-right {
+    .banner-bg.current {
+        transform: translateX(-100%);
+    }
+    .banner-bg.next {
+        transform: translateX(0);
     }
 }
 
-.banner-overlay{
+/* 왼쪽으로 슬라이드 */
+.banner.slide-left {
+    .banner-bg.current {
+        transform: translateX(100%);
+    }
+    .banner-bg.next {
+        transform: translateX(0);
+    }
+}
+
+.banner-overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
     background: linear-gradient(
         to right,
-        rgba(0,0,0,0.65) 0%,
-        rgba(0,0,0,0.35) 40%,
-        rgba(0,0,0,0.15) 70%,
-        rgba(0,0,0,0) 100%
+        rgba(0, 0, 0, 0.65) 0%,
+        rgba(0, 0, 0, 0.55) 30%,
+        rgba(0, 0, 0, 0.25) 55%,
+        rgba(0, 0, 0, 0) 75%
     );
 }
 
-.banner-content{
+
+.banner-content {
     position: absolute;
     top: 50%;
-    left: 80px;
+    left: 100px;
     transform: translateY(-50%);
     z-index: 2;
     color: #fff;
-    h1{
-        @include title-h1 ;
+    max-width: 420px;
+
+    h1 {
+        @include title-h1;
         margin-bottom: 16px;
     }
-    p{
+
+    p {
         @include font-body;
         font-size: 14px;
         opacity: 0.9;
         margin-bottom: 24px;
     }
-    .banner-link{
-        @include font-body;
-        font-size: 14px;
-        font-weight: 500;
-        color: #fff;
-        display: inline-block;
-        cursor: pointer;
-        position: relative;
-        padding-bottom: 2px;
-        &::after{
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 1px;
-            background: #fff;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
+
+    .banner-link {
+    @include font-body;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 2px;
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background: #fff;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
         }
-        &:hover::after{
-            transform: scaleX(1);
+
+        &:hover::after {
+        transform: scaleX(1);
         }
     }
 }
-.arrow{
+
+
+.arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 3;
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.25);
+    width: 68px;
+    height: 68px;
+    background: rgba(0, 0, 0, 0.25);
     border: none;
     color: #fff;
-    font-size: 32px;
+    font-size: 48px;
     cursor: pointer;
-    &.left{
+
+    &.left {
         left: 24px;
     }
-    &.right{
+
+    &.right {
         right: 24px;
     }
-    &:hover{
+
+    &:hover {
         background: rgba(255, 255, 255, 0.4);
     }
 }
-.banner-progress{
+
+.banner-progress-wrap {
     position: absolute;
     left: 80px;
+    right: 0;
     bottom: 32px;
+    z-index: 3;
+    pointer-events: none;
+    }
+
+    /* Progress bar */
+    .banner-progress {
     width: 80%;
     height: 1px;
     background: rgba(255, 255, 255, 0.3);
-    z-index: 2;
-    span{
+
+    span {
         display: block;
-        width: 40%;
         height: 100%;
         background: #fff;
+        transition: width 0.4s ease;
+    }
+    }
+
+/* Slide count (1 / 5 +) */
+.banner-count {
+    @include body-M;
+    position: absolute;
+    right: 50px;
+    bottom: -12px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: #ffffff;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 4;
+    .current {
+        font-weight: 600;
+    }
+
+    .slash {
+        margin: 0 2px;
+    }
+
+    .total {
+        opacity: 0.7;
+    }
+
+    .plus {
+        margin-left: 4px;
+        opacity: 0.7;
     }
 }

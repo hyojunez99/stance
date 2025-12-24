@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom"
 import Gnb from "../common/Gnb"
 import "./Header.scss"
-import { FiSearch } from "react-icons/fi";
-import { PiShoppingCartSimple } from "react-icons/pi";
-import { CiHeart } from "react-icons/ci";
-import { CiUser } from "react-icons/ci";
+import { FiSearch,FiHeart,FiShoppingCart,FiUser } from "react-icons/fi";
 const Header = () => {
   return (
     <header>
@@ -15,7 +12,7 @@ const Header = () => {
         </h1>
         {/* Gnb */}
         <Gnb />
-        {/* util */}
+        {/* 로그인 */}
         <div className="util">
           <Link to="/login">LOG IN</Link>
           <span>·</span>
@@ -27,13 +24,13 @@ const Header = () => {
             <FiSearch />
           </Link>
           <Link to="/cart" className="icon-btn"aria-label="장바구니">
-            <PiShoppingCartSimple />
+            <FiShoppingCart />
           </Link>
           <Link className="icon-btn" aria-label="위시리스트">
-            <CiHeart />
+            <FiHeart />
           </Link>
           <Link className="icon-btn" aria-label="마이페이지">
-            <CiUser />
+            <FiUser />
           </Link>
         </div>
       </div>

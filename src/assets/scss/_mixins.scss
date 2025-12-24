@@ -1,3 +1,13 @@
+//반응형
+$mobile : 375px ;
+
+//반응형 처리
+@mixin mobile{
+  @media all and (max-width: $mobile) {
+    @content;
+  }
+}
+
 //레이아웃 플렉스
 @mixin flex-layout($dir: row, $just: center, $align: center, $gap: 1rem) {
   display: flex;

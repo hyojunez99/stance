@@ -1,5 +1,6 @@
 @use '../../assets/scss/fonts' as *;
 @use '../../assets/scss/variables' as *;
+
 header{
     width: 100%;
     background-color: var(--Surface-100);
@@ -8,7 +9,7 @@ header{
 }
 .header-inner{
     max-width: 1920px;
-    height: 64px;
+    height: 100px;
     margin: 0 auto;
     padding: 0 32px;
     display: flex;
@@ -42,8 +43,9 @@ header{
         font-size: 16px;
         font-weight: 500;
         color: var(--Primary-300);
-        &hover{
+        &:hover{
             color: var(--Primary-400);
+            font-weight: bold;
         }
     }
     span{
@@ -54,7 +56,7 @@ header{
 .icon-group{
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 28px;
 }
 .icon-btn{
     padding: 4px;
