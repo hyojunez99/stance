@@ -1,9 +1,15 @@
 @use "../../assets/scss/fonts" as *;
+@use "../../assets/scss/mixins" as *;
 .banner {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 720px;
+    margin-left: calc(50% - 50vw);
     overflow: hidden;
+    background: #000;
+    @include mobile{
+        height: 513px;
+    }
 }
 
 .banner-bg {
@@ -11,11 +17,12 @@
     inset: 0;
     background-size: cover;
     background-repeat: no-repeat;
-
     /* 이미지 위아래 흔들림 방지 */
     background-position-y: 50%;
-
     transition: transform 0.6s ease;
+    @include mobile{
+        background-position: center;
+    }
 }
 
 .banner-bg.current {
@@ -62,27 +69,67 @@
 
 
 .banner-content {
-    position: absolute;
-    top: 50%;
-    left: 100px;
-    transform: translateY(-50%);
-    z-index: 2;
-    color: #fff;
-    max-width: 420px;
-
-    h1 {
-        @include title-h1;
-        margin-bottom: 16px;
+  position: absolute;
+  top: 50%;
+  left: 100px;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #fff;
+  @include mobile{
+    top: auto;
+    bottom: 80px;
+    left: 16px;
+    transform: none;
+    max-width: 90%;
+  }
+  h1 {
+    margin-bottom: 16px;
+    letter-spacing: -0.03em;
+    @include mobile{
+        margin-bottom: 12px;
     }
 
-    p {
-        @include font-body;
-        font-size: 14px;
-        opacity: 0.9;
-        margin-bottom: 24px;
+    span {
+        display: inline-block;
+        color: #fff;
     }
 
-    .banner-link {
+    .title-top {
+      @include title-h1;
+      font-size: 64px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: block;
+      @include mobile{
+        @include title-h3;
+        margin-bottom: 4px;
+      }
+    }
+
+    .title-box {
+      @include title-h1;
+      font-size: 72px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+      margin-bottom: 6px;
+      background: none;
+      @include mobile{
+        @include title-h3;
+        line-height: 1.05;
+        margin-bottom: 4px
+      }
+    }
+  }
+
+  p {
+    @include font-body;
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 24px;
+  }
+
+  .banner-link {
     @include font-body;
     font-size: 14px;
     font-weight: 500;
@@ -93,23 +140,24 @@
     padding-bottom: 2px;
 
     &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 1px;
-        background: #fff;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.3s ease;
-        }
-
-        &:hover::after {
-        transform: scaleX(1);
-        }
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: #fff;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
     }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
 }
+
 
 
 .arrow {
@@ -124,6 +172,9 @@
     color: #fff;
     font-size: 48px;
     cursor: pointer;
+    @include mobile{
+        display: none;
+    }
 
     &.left {
         left: 24px;
@@ -140,16 +191,19 @@
 
 .banner-progress-wrap {
     position: absolute;
-    left: 80px;
-    right: 0;
+    left: 120px;
+    right: 120px;
     bottom: 32px;
     z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     pointer-events: none;
     }
 
     /* Progress bar */
     .banner-progress {
-    width: 80%;
+    flex: 1;
     height: 1px;
     background: rgba(255, 255, 255, 0.3);
 
@@ -164,23 +218,17 @@
 /* Slide count (1 / 5 +) */
 .banner-count {
     @include body-M;
-    position: absolute;
-    right: 50px;
-    bottom: -12px;
     display: flex;
     align-items: center;
     gap: 2px;
-    color: #ffffff;
+    color: #fff;
     padding: 6px 10px;
     border-radius: 20px;
     background: rgba(0, 0, 0, 0.35);
-    z-index: 4;
+    white-space: nowrap;
+
     .current {
         font-weight: 600;
-    }
-
-    .slash {
-        margin: 0 2px;
     }
 
     .total {

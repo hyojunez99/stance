@@ -88,20 +88,21 @@ return(
       <div className="banner-overlay" />
       {/* 고정 텍스트 */}
       <div className="banner-content">
-        <h1>
-          PEACEY<br/>
-          RUN YOUR FACE
-        </h1>
-        <p>러닝의 변화, 지금 시작하세요.</p>
-        <span className="banner-link">더보기→</span>
-      </div>
+      <h1>
+        <span className="title-top">PACEY</span>
+        <span className="title-box">RUN YOUR</span>
+        <span className="title-box">FACE</span>
+      </h1>
+      <p>러닝의 변화, 지금 시작하세요.</p>
+      <span className="banner-link">더보기 →</span>
+  </div>
 
       {/* 진행바 */}
       <div className="banner-progress-wrap">
       <div className="banner-progress">
         <span
         style={{
-          width: `${((current + 1 )/ banners.length) * 100}%`
+          width: `${((current + 1 )/ total) * 100}%`
         }}
         />
       </div>
@@ -109,7 +110,7 @@ return(
       <div className="banner-count">
         <span className="current">{current + 1 }</span>
         <span className="slash"> / </span>
-        <span className="total">{banners.length}</span>
+        <span className="total">{total}</span>
         <span className="plus">＋</span>
       </div>
     </div>
