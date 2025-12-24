@@ -1,9 +1,9 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Layout from "./layout/Layout"
-import MainPage from "./pages/MainPage"
-import CartPage from "./pages/CartPage"
-import CategoryPage from "./pages/CategoryPage"
+import Layout from "./layout/Layout";
+import MainPage from "./pages/MainPage";
+import CartPage from "./pages/CartPage";
+import CategoryPage from "./pages/CategoryPage";
 import "./assets/scss/global.scss";
 
 import { useState } from "react";
@@ -42,7 +42,7 @@ const App = () => {
         <Route path="/category" element={<CategoryPage />} />
       </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,8 +1,8 @@
 @use "../../assets/scss/mixins" as *;
 
+// PC 버전
 #runningnews {
   padding: 5rem 3rem;
-
   h2 {
     font-size: 2rem;
   }
@@ -36,6 +36,45 @@
             font-size: 0.875rem;
             font-weight: bolder;
             color: var(--Primary-300);
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  #runningnews {
+    @include flex-layout(column);
+    width: 100%;
+    padding: 5rem 0;
+    h2 {
+      font-size: 1.25rem;
+      padding-bottom: 12px;
+    }
+    ul {
+      width: 100%;
+      @include flex-layout(row, flex-start, center, $gap: 0);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      li {
+        flex: 0 0 82vw;
+        img {
+        }
+        .news-title {
+          > p {
+            font-size: 0.875rem;
+            letter-spacing: -0.4px;
+            height: auto;
+          }
+          .news-txt {
+            p {
+              font-size: 0.875rem;
+              height: auto;
+            }
           }
         }
       }

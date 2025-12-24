@@ -64,9 +64,6 @@ const ProductSection = () => {
                   <p className="title">{item.title}</p>
                   <p className="sub1">{item.sub1}</p>
                   <div className="price">
-                    <span className="original-price">
-                      {item.price1.toLocaleString()}원
-                    </span>
                     <div className="price-row">
                       <span className="discount">{discountPercentage}%</span>
                       <span className="sale-price">
@@ -79,7 +76,6 @@ const ProductSection = () => {
             );
           })}
         </ul>
-
         <div className="btn">
           <div className="prev" onClick={prevSlide}>
             <IoIosArrowBack />
@@ -89,7 +85,6 @@ const ProductSection = () => {
           </div>
         </div>
       </div>
-
       <div className="indi-bottom">
         <div className="indicator">
           {Array.from({ length: Math.ceil(totalItems / 2) }).map((_, idx) => (

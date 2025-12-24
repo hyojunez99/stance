@@ -1,8 +1,8 @@
 //반응형
-$mobile : 375px ;
+$mobile: 375px;
 
 //반응형 처리
-@mixin mobile{
+@mixin mobile {
   @media all and (max-width: $mobile) {
     @content;
   }

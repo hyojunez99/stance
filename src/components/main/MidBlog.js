@@ -1,7 +1,7 @@
 import "./MidBlog.scss";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
-import Banner2Img1 from "../../assets/images/banner2/running-1.jpg"; //임시
+import Banner2Img1 from "../../assets/images/icon/iconimg.jpg";
 
 const MidBlog = () => {
   return (
@@ -16,7 +16,6 @@ const MidBlog = () => {
             </h2>
             <p>응모 이벤트 바로가기</p>
           </div>
-          {/* 임시 */}
           <img src={Banner2Img1} alt="배너2이미지1" />
           <div className="btn">
             <div className="prev">

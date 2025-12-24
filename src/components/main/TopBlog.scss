@@ -1,5 +1,6 @@
 @use "../../assets/scss/mixins" as *;
 
+//PC 버전
 #hello {
   padding-bottom: 5rem;
   .hello-box {
@@ -22,6 +23,22 @@
           @include flex-layout();
           width: 1.5rem;
           height: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+// 모바일 버전
+@include mobile {
+  #hello{
+    .hello-box{
+      .txt{
+        h2{
+          font-size: 1.125rem;
+        }
+        p{
+          font-size: 0.75rem;
         }
       }
     }

@@ -13,11 +13,11 @@ const CategorySection = () => {
               alt={item.title}
             />
             <div className="news-title">
-            <p>{item.title}</p>
-            <div className="news-txt">
-              <p>#{item.sub1}</p>
-              <p>#{item.sub2}</p>
-            </div>
+              <p>{item.title}</p>
+              <div className="news-txt">
+                <p>#{item.sub1}</p>
+                <p>#{item.sub2}</p>
+              </div>
             </div>
           </li>
         ))}

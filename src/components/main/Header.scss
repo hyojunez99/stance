@@ -1,74 +1,147 @@
-@use '../../assets/scss/fonts' as *;
-@use '../../assets/scss/variables' as *;
+@use "../../assets/scss/fonts" as *;
+@use "../../assets/scss/variables" as *;
+@use "../../assets/scss/mixins" as *;
 
-header{
-    width: 100%;
-    background-color: var(--Surface-100);
-    border-top: 2px solid var(--Primary-300);
-    border-bottom: 1px solid var(--Border-100);
+header {
+  width: 100%;
+  background-color: var(--Surface-100);
+  border-top: 2px solid var(--Primary-300);
+  border-bottom: 1px solid var(--Border-100);
+  @include mobile {
+    border-width: 1px;
+  }
 }
-.header-inner{
-    max-width: 1920px;
-    height: 100px;
-    margin: 0 auto;
-    padding: 0 32px;
-    display: flex;
-    align-items: center;
+.header-inner {
+  max-width: 1920px;
+  height: 100px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  @include mobile {
+    height: auto;
+    padding: 0 16px;
+    flex-wrap: wrap;
+  }
 }
-.logo{
-    @include title-h1;
-    padding-right: 32px;
-    margin-right: 32px;
-    color: var(--Primary-300);
-    border-right: 1px solid var(--Primary-300);
-    a{
-        display: block;
-        letter-spacing: 0.5px;
-    }
-}
-.gnb{
+.logo {
+  @include title-h1;
+  padding-right: 32px;
+  margin-right: 32px;
+  color: var(--Primary-300);
+  border-right: 1px solid var(--Primary-300);
+  a {
+    display: block;
+    letter-spacing: 0.5px;
+  }
+  @include mobile {
     flex: 1;
-    padding-right: 32px;
-    margin-right: 32px;
-    border-right: 1px solid var(--Primary-300);
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+    padding: 12px 0;
+  }
 }
-.util{
+.gnb {
+  flex: 1;
+  padding-right: 32px;
+  margin-right: 32px;
+  border-right: 1px solid var(--Primary-300);
+  ul {
     display: flex;
-    align-items: center;
-    gap: 6px;
-    padding-right: 32px;
-    margin-right: 32px;
-    border-right: 1px solid var(--Primary-300);
-    a{
-        font-size: 16px;
-        font-weight: 500;
-        color: var(--Primary-300);
-        &:hover{
-            color: var(--Primary-400);
-            font-weight: bold;
-        }
-    }
-    span{
-        font-size: 24px;
-        color: var(--Primary-300);
-    }
-}
-.icon-group{
-    display: flex;
-    align-items: center;
     gap: 28px;
+  }
+  @include mobile {
+    width: 100%;
+    order: 3;
+    flex: none;
+    padding-right: 0;
+    margin-right: 0;
+    border-right: none;
+
+    border-top: 1px solid var(--Primary-300);
+    margin-top: 8px;
+    padding-top: 8px;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    li {
+      padding: 10px 0;
+      text-align: center;
+      width: auto;
+      flex: 1;
+      font-size: 14px;
+    }
+
+    /* RUNNING NEWS만 하단 단독 */
+    li:last-child {
+      flex: none;
+      width: 100%;
+      text-align: left;
+      padding-left: 16px;
+      border-top: 1px solid var(--Primary-300);
+      margin-top: 8px;
+      padding-top: 12px;
+    }
+  }
 }
-.icon-btn{
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.util {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 32px;
+  margin-right: 32px;
+  border-right: 1px solid var(--Primary-300);
+  @include mobile {
+    display: none;
+  }
+  a {
+    font-size: 16px;
+    font-weight: 500;
     color: var(--Primary-300);
-    svg{
-        font-size: 32px;
-        stroke-width: 1.6;
+    &:hover {
+      color: var(--Primary-400);
+      font-weight: bold;
     }
-    &:hover{
-        color: var(--Primary-400);
+  }
+  span {
+    font-size: 24px;
+    color: var(--Primary-300);
+  }
+}
+.icon-group {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  @include mobile {
+    gap: 10px;
+  }
+}
+.icon-btn {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--Primary-300);
+  svg {
+    font-size: 32px;
+    stroke-width: 1.6;
+  }
+  &:hover {
+    color: var(--Primary-400);
+  }
+  @include mobile {
+    &:nth-child(3),
+    &:nth-child(4) {
+      display: none;
     }
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
