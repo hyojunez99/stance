@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Gnb from "../common/Gnb";
 import "./Header.scss";
 import { FiSearch, FiHeart, FiShoppingCart, FiUser } from "react-icons/fi";
+
 const Header = () => {
   return (
     <header>
@@ -10,13 +11,17 @@ const Header = () => {
         <h1 className="logo">
           <Link to="/">PACEY</Link>
         </h1>
+
+        {/* 네비게이션 */}
         <Gnb />
+
         {/* 로그인 */}
         <div className="util">
           <Link to="/login">LOG IN</Link>
           <span>·</span>
           <Link to="/join">JOIN US</Link>
         </div>
+
         {/* 우측 아이콘 */}
         <div className="icon-group">
           <Link className="icon-btn" aria-label="검색">

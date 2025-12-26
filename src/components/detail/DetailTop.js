@@ -45,9 +45,6 @@
 //   );
 // };
 
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////1차시안
 
 // import React, { useState, useEffect } from 'react';
@@ -62,7 +59,7 @@
 // const DetailTop = ({ product }) => {
 //   // 1. 데이터 초기화 (props가 없으면 json 데이터 사용)
 //   const sampleProduct = product || itemData[0];
-  
+
 //   // 가상의 데이터 필드 (JSON에 없으면 기본값 사용) -> 실제 데이터 구조에 맞춰 수정 필요
 //   const originalPrice = sampleProduct.priceOriginal || 519000; // 정가 (예시)
 //   const salePrice = parseInt(sampleProduct.price1.replace(/[^0-9]/g, "")) || 38800; // 판매가
@@ -95,10 +92,10 @@
 //       <div className="product-images">
 //         <div className="main-image-wrapper">
 //           {/* require 경로는 실제 프로젝트 구조에 맞춰야 함 */}
-//           <img 
-//             src={require(`../../assets/images/Shoes/${sampleProduct.image}`)} 
-//             alt={sampleProduct.name} 
-//             className="main-image" 
+//           <img
+//             src={require(`../../assets/images/Shoes/${sampleProduct.image}`)}
+//             alt={sampleProduct.name}
+//             className="main-image"
 //           />
 //         </div>
 //         <div className="thumbnail-images">
@@ -177,8 +174,8 @@
 //           <span className="label">사이즈</span>
 //           <div className="size-grid">
 //             {sizes.map((size, index) => (
-//               <button 
-//                 key={index} 
+//               <button
+//                 key={index}
 //                 className={`size-btn ${selectedSize === size ? 'selected' : ''}`}
 //                 onClick={() => setSelectedSize(size)}
 //               >
@@ -221,50 +218,57 @@
 
 // export default DetailTop;
 
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////2차시안
 
-
-
-import React, { useState } from 'react';
-import ItemData from '../../assets/data/Item.json';
-import './DetailTop.scss';
-import { useParams } from 'react-router-dom';
+import React, { useState } from "react";
+import ItemData from "../../assets/data/Item.json";
+import "./DetailTop.scss";
+import { useParams } from "react-router-dom";
 
 const DetailTop = () => {
-  const {id} = useParams();
+  const { id } = useParams();
   // 예시를 위해 id "1"번 데이터를 가져옵니다.
   const product = ItemData.find((item) => item.id === id);
-  const [mainImg, setMainImg] = useState(product ? product.image : '');
+  const [mainImg, setMainImg] = useState(product ? product.image : "");
   const [selectedSize, setSelectedSize] = useState(null);
 
   if (!product) return <div className="loading">Loading...</div>;
-  
+
   // 사이즈 옵션 배열 (시안 참고)
   const sizes = [225, 230, 235, 240, 245, 250, 255, 260, 265, 270, 275, 280];
 
   return (
     <section className="detail-top">
       <div className="detail-top__inner">
-        
         {/* 왼쪽: 이미지 영역 */}
         <div className="img-area">
           <div className="main-img-container">
-            <img src={require(`../../assets/images/Shoes/${mainImg}`)} alt={product.title} className="main-img" />
+            <img
+              src={require(`../../assets/images/Shoes/${mainImg}`)}
+              alt={product.title}
+              className="main-img"
+            />
           </div>
           <div className="sub-imgs">
-             <div className={`thumb ${mainImg === product.image ? 'active' : ''}`} 
-                  onClick={() => setMainImg(product.image)}>
-                <img src={require(`../../assets/images/Shoes/${product.image}`)} alt="main thumb" />
-             </div>
+            <div
+              className={`thumb ${mainImg === product.image ? "active" : ""}`}
+              onClick={() => setMainImg(product.image)}
+            >
+              <img
+                src={require(`../../assets/images/Shoes/${product.image}`)}
+                alt="main thumb"
+              />
+            </div>
             {product.detailimage.slice(0, 4).map((img, idx) => (
-              <div key={idx} 
-                   className={`thumb ${mainImg === img ? 'active' : ''}`} 
-                   onClick={() => setMainImg(img)}>
-                <img src={require(`../../assets/images/Shoes/${img}`)} alt={`detail-${idx}`} />
+              <div
+                key={idx}
+                className={`thumb ${mainImg === img ? "active" : ""}`}
+                onClick={() => setMainImg(img)}
+              >
+                <img
+                  src={require(`../../assets/images/Shoes/${img}`)}
+                  alt={`detail-${idx}`}
+                />
               </div>
             ))}
           </div>
@@ -276,9 +280,13 @@ const DetailTop = () => {
             <span className="category">{product.sub1} (WIDE)</span>
             <h2 className="title">{product.title}</h2>
             <div className="price-box">
-                <span className="discount-rate">30%</span>
-                <span className="price">{Number(product.price2).toLocaleString()}원</span>
-                <span className="original-price">{Number(product.price1).toLocaleString()}원</span>
+              <span className="discount-rate">30%</span>
+              <span className="price">
+                {Number(product.price2).toLocaleString()}원
+              </span>
+              <span className="original-price">
+                {Number(product.price1).toLocaleString()}원
+              </span>
             </div>
           </div>
 
@@ -299,10 +307,12 @@ const DetailTop = () => {
             <div className="option-section">
               <p className="option-title">사이즈</p>
               <div className="size-grid">
-                {sizes.map(size => (
-                  <button 
-                    key={size} 
-                    className={`size-btn ${selectedSize === size ? 'active' : ''}`}
+                {sizes.map((size) => (
+                  <button
+                    key={size}
+                    className={`size-btn ${
+                      selectedSize === size ? "active" : ""
+                    }`}
                     onClick={() => setSelectedSize(size)}
                   >
                     {size}
@@ -315,23 +325,23 @@ const DetailTop = () => {
           {/* 구매 정보 및 버튼 */}
           <div className="action-area">
             <div className="shipping-info">
-              <p><span>배송정보</span> 국내배송</p>
-              <p><span>배송비</span> 무료 (도서산간 제외)</p>
+              <p>
+                <span>배송정보</span> 국내배송
+              </p>
+              <p>
+                <span>배송비</span> 무료 (도서산간 제외)
+              </p>
             </div>
-            
+
             <div className="btn-group">
-                <button className="btn-cart">장바구니</button>
-                <button className="btn-buy">구매하기</button>
+              <button className="btn-cart">장바구니</button>
+              <button className="btn-buy">구매하기</button>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );
 };
 
 export default DetailTop;
-
-
-

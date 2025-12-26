@@ -1,24 +1,37 @@
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
-
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
 import MainPage from "./pages/MainPage";
 import CartPage from "./pages/CartPage";
 import CategoryPage from "./pages/CategoryPage";
+import DetailPage from "./pages/DetailPage";
+import { useState } from "react";
 import "./assets/scss/global.scss";
 
-import { useState } from "react";
-import DetailPage from "./pages/DetailPage";
 const App = () => {
+  const [cartItems, setCartItems] = useState([
+    {
+      id: 1,
+      title: "테스트 상품",
+      price: 80000,
+      quantity: 1,
+      image: "shoes01-1.jpg",
+    },
+    {
+      id: 2,
+      title: "테스트 상품2",
+      price: 129000,
+      quantity: 2,
+      image: "shoes01-1.jpg",
+    },
+  ]);
 
-  const [cartItems, setCartItems] = useState([]);
-
-  const handleAddToCart = (product) => {
-    const existItem = cartItems.find((item) => item.id === product.id);
-
-    if (existItem){
-      const items = cartItems.map((cart)=>
-        cart.id === [product].id ? { ...cart,quantity: cart.quantity +1}
-      : cart
+  const onUpdateQty = (id, delta) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+          : item
+      )
     );
     setCartItems(items);
     } else{
@@ -31,18 +44,8 @@ const App = () => {
   //   setCartItems(items);
   // };
 
-  const handleUpdateQuantity = (id, type) => {
-    const update = cartItems.map((item)=> {
-      if(item.id === id) {
-        if(type === "plus"){
-          return {...item, quantity: item.quantity +1};
-        } else if ( type === "minus" && item.quantity > 1) {
-          return { ...item, quantity: item.quantity - 1};
-        }
-      }
-      return item;
-    });
-    setCartItems(update);
+  const onDelete = (id) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
   const handleCartDelete = (id)=>{
   const items = cartItems.filter((item)=>{
@@ -69,19 +72,25 @@ const App = () => {
   // };
 
   return (
-    // <BrowserRouter>
     <HashRouter>
       <Routes>
-        <Route element={<Layout />} />
-        <Route path="/" element={<MainPage onAdd={handleAddToCart}/>} />
-        <Route path="/cart" element={<CartPage
-          cartItems={cartItems}
-          onUpdate={handleUpdateQuantity}
-          onDelete={handleCartDelete} />} />
-        <Route path="/category" element={<CategoryPage  onAdd={handleAddToCart}/>} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<MainPage />} />
+          <Route
+            path="/cart"
+            element={
+              <CartPage
+                cartItems={cartItems}
+                onUpdateQty={onUpdateQty}
+                onDelete={onDelete}
+              />
+            }
+          />
+          <Route path="/category" element={<CategoryPage />} />
+          <Route path="/detail/:id" element={<DetailPage />} />
+        </Route>
       </Routes>
     </HashRouter>
-    // </BrowserRouter>
   );
 };
 

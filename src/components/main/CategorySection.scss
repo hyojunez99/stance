@@ -11,6 +11,7 @@
     @include flex-layout($gap: 0);
     width: 100%;
     li {
+      overflow: hidden;
       flex: 1 1 25%;
       cursor: pointer;
       border: 1px solid #0073e5;
@@ -25,6 +26,11 @@
         object-fit: cover;
         display: block;
         flex-shrink: 0;
+        transition: 0.5s;
+        &:hover {
+          transform: scale(1.05);
+          filter: brightness(0.75);
+        }
       }
       .news-title {
         padding: 1.25rem;
@@ -88,7 +94,7 @@
         .news-title {
           > p {
             font-size: 0.875rem;
-            letter-spacing: -0.4px;
+            letter-spacing: -0.5px;
             height: auto;
           }
           .news-txt {

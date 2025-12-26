@@ -15,19 +15,20 @@
       border-right: 1px solid #0073e5;
       cursor: pointer;
       background-color: rgba(245, 245, 245, 1);
-      &:hover {
-        background-color: var(--Primary-100);
+      &:hover img {
+        animation: float 1.5s ease-in-out infinite;
       }
       .img-wrap {
         position: relative;
       }
       img {
+        overflow: hidden;
         transition: transform 0.5s ease;
         display: block;
         width: 100%;
         aspect-ratio: 1 / 1;
         &:hover {
-          transform: scale(1.05);
+          animation: float 1.5s ease-in-out infinite;
         }
       }
       .num {
@@ -222,5 +223,18 @@
     ul {
       grid-template-columns: repeat(2, 1fr);
     }
+  }
+}
+
+// 애니메이션
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px); // 위로 10px 이동
+  }
+  100% {
+    transform: translateY(0); // 원위치
   }
 }

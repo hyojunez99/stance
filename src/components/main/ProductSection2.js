@@ -12,20 +12,17 @@ gsap.registerPlugin(ScrollTrigger);
 const ProductSection2 = () => {
   const navigate = useNavigate();
   const bestItems = listDate.filter((item) => item.category === "pick");
+
   const calculateDiscount = (price1, price2) => {
     return Math.floor(((price1 - price2) / price1) * 100);
   };
 
   // ScrollTrigger 적용
-
   const sectionRef = useRef(null);
   useEffect(() => {
     const items = sectionRef.current.querySelectorAll("ul li");
     items.forEach((item) => {
-      // 초기 상태 세팅
       gsap.set(item, { y: 70, opacity: 0 });
-
-      // 스크롤 시 애니메이션
       gsap.to(item, {
         y: 0,
         opacity: 1,
@@ -33,9 +30,9 @@ const ProductSection2 = () => {
         ease: "power2.out",
         scrollTrigger: {
           trigger: item,
-          start: "top 90%", // 화면 아래에서 10% 남은 위치에서 시작
+          start: "top 90%",
           end: "bottom 20%",
-          toggleActions: "play none none reverse", // 스크롤 올리면 다시 숨김
+          toggleActions: "play none none reverse",
           markers: false,
         },
       });
@@ -52,7 +49,16 @@ const ProductSection2 = () => {
             item.price2
           );
           return (
-            <li key={item.id} onClick={()=>{navigate(`/detail/${item.id}`)}}>
+            <li
+              key={item.id}
+              onClick={() => {
+                // 페이지 이동 시 상품 id를 URL에 포함시켜 DetailPage로 이동
+                navigate(`/detail/${item.id}`);
+                setTimeout(() => {
+                  window.scrollTo({ top: 0, left: 0 });
+                });
+              }}
+            >
               <div className="img-wrap">
                 <img
                   src={require(`../../assets/images/Shoes/${item.image}`)}

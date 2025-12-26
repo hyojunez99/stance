@@ -23,6 +23,8 @@ const ProductSection = () => {
 
   const slides = [...bestItems, ...bestItems.slice(0, visibleCount)];
 
+  const [isTransition, setIsTransition] = useState(true);
+
   // ScrollTrigger 적용
   const sectionRef = useRef(null);
 
@@ -54,7 +56,10 @@ const ProductSection = () => {
       <div className="slider-wrap">
         <ul
           className="slider"
-          style={{ transform: `translateX(-${currentIndex * 25}%)` }}
+          style={{
+            transform: `translateX(-${currentIndex * 25}%)`,
+            transition: isTransition ? "transform 0.5s ease-in-out" : "none",
+          }}
         >
           {slides.map((item, idx) => {
             const discountPercentage = calculateDiscount(
