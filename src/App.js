@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 
 import Layout from "./layout/Layout";
 import MainPage from "./pages/MainPage";
@@ -32,7 +32,8 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
+    // <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route element={<Layout />} >
           <Route path="/" element={<MainPage />} />
@@ -44,7 +45,8 @@ const App = () => {
           <Route path="/detail/:id" element={<DetailPage />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
+    // </BrowserRouter>
   );
 };
 
