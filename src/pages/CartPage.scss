@@ -126,12 +126,6 @@
     border-bottom: 1px solid var(--Border-100);
     border-top: 1px solid var(--Border-100);
 
-    @include mobile {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
     input {
       width: 24px;
       height: 24px;
@@ -197,13 +191,12 @@
   }
 }
 
-/* 수량 + 가격 영역 */
 .item-row {
 
   @include flex-layout(row, space-between, center, 0.8rem);
 
   @include mobile {
-    // width: 100%;
+
   }
 
   .count {
