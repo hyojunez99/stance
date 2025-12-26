@@ -23,7 +23,7 @@ header {
   @include mobile {
     height: auto;
     padding: 0 16px;
-    flex-wrap: wrap;  // 모바일에서 줄바꿈 가능하게
+    flex-wrap: wrap; // 모바일에서 줄바꿈 가능하게
   }
 }
 

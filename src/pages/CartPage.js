@@ -1,77 +1,45 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CartPage.scss";
 
-const CartPage = ({ cartItems, onUpdateQty, onDelete }) => {
+const CartPage = () => {
   const navigate = useNavigate();
+
+  // 뒤로 가기
   const handleBack = () => navigate(-1);
 
-  // 체크된 아이템 id set
-  const [checkedIds, setCheckedIds] = useState(() => new Set());
+  const [cartItems, setCartItems] = useState([]);
 
-  // 장바구니가 바뀔 때마다 기본값 = 전체 선택
+  // 장바구니 아이템을 로컬 스토리지에서 가져오기
   useEffect(() => {
-    setCheckedIds(new Set(cartItems.map((i) => i.id)));
-  }, [cartItems]);
+    const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItems(savedCartItems);
+  }, []);
 
-  // 전체 선택 여부
-  const allChecked = useMemo(() => {
-    if (cartItems.length === 0) return false;
-    return cartItems.every((i) => checkedIds.has(i.id));
-  }, [cartItems, checkedIds]);
-
-  // 선택된 아이템들
-  const selectedItems = useMemo(
-    () => cartItems.filter((i) => checkedIds.has(i.id)),
-    [cartItems, checkedIds]
-  );
-
-  // 주문금액 합계
-  const itemsTotal = useMemo(
-    () => selectedItems.reduce((acc, i) => acc + i.price * i.quantity, 0),
-    [selectedItems]
-  );
-
-  // 수량 합계
-  const totalQty = useMemo(
-    () => selectedItems.reduce((acc, i) => acc + i.quantity, 0),
-    [selectedItems]
-  );
-
-  // 배송비
-  const shippingFee = useMemo(() => {
-    if (itemsTotal === 0) return 0;
-    return 3000;
-  }, [itemsTotal]);
-
-  // 할인 (30만 이상 3만 할인)
-  const discount = useMemo(() => {
-    if (itemsTotal >= 300000) return 30000;
-    return 0;
-  }, [itemsTotal]);
-
-  const finalTotal = itemsTotal - discount + shippingFee;
-
-  // 전체 토글
-  const toggleAll = () => {
-    if (allChecked) setCheckedIds(new Set());
-    else setCheckedIds(new Set(cartItems.map((i) => i.id)));
-  };
-
-  // 하나 토글
-  const toggleOne = (id) => {
-    setCheckedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
+  // 수량 변경
+  const handleUpdateQty = (id, action) => {
+    const updatedItems = cartItems.map((item) => {
+      if (item.id === id) {
+        if (action === "plus") item.quantity += 1;
+        else if (action === "minus" && item.quantity > 1) item.quantity -= 1;
+      }
+      return item;
     });
+    setCartItems(updatedItems);
+    localStorage.setItem("cart", JSON.stringify(updatedItems)); // 로컬 스토리지에 업데이트
   };
 
-  // 선택 삭제
-  const handleSelectedDelete = () => {
-    selectedItems.forEach((i) => onDelete(i.id));
+  // 아이템 삭제
+  const handleDelete = (id) => {
+    const updatedItems = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedItems);
+    localStorage.setItem("cart", JSON.stringify(updatedItems)); // 로컬 스토리지에 업데이트
   };
+
+  // 금액 계산
+  const itemsTotal = useMemo(() => {
+    return cartItems.reduce((acc, i) => acc + i.price * i.quantity, 0);
+  }, [cartItems]);
 
   return (
     <div className="cart-page">
@@ -83,396 +51,80 @@ const CartPage = ({ cartItems, onUpdateQty, onDelete }) => {
       </div>
 
       <div className="cart-layout">
-        {/* 목록 */}
+        {/* 왼쪽: 장바구니 목록 */}
         <section className="cart-left">
           <div className="cart-card">
-            <div className="cart-toolbar">
-              <label className="check">
-                <input
-                  type="checkbox"
-                  checked={allChecked}
-                  onChange={toggleAll}
-                />
-                전체 선택
-              </label>
-              <button className="delete-btn" onClick={handleSelectedDelete}>
-                선택삭제
-              </button>
-            </div>
-
             <ul className="cart-list">
-              <p className="brand">PACEFY</p>
               {cartItems.map((item) => (
                 <li className="cart-item" key={item.id}>
-                  <label className="check item-check">
-                    <input
-                      type="checkbox"
-                      checked={checkedIds.has(item.id)}
-                      onChange={() => toggleOne(item.id)}
-                    />
-                  </label>
-
                   <div className="item-info">
                     <div className="up">
                       <div className="list-img">
                         <img
                           src={require(`../assets/images/Shoes/${item.image}`)}
-                          alt={`${item.title} ${item.category}`}
+                          alt={item.title}
                         />
                       </div>
-
                       <div className="sameline">
                         <div className="txt">
-                          <p className="item-title">PACEFY {item.title}</p>
-                          <p className="sub-title">subname 들어갈 곳</p>
+                          <p className="item-title">{item.title}</p>
+                          <p className="sub-title">{item.size}</p>
                         </div>
                         <button
                           className="remove"
-                          onClick={() => onDelete(item.id)}
+                          onClick={() => handleDelete(item.id)}
                         >
-                          <i className="fa-solid fa-x" />
+                          <i className="fa-solid fa-x"></i>
                         </button>
                       </div>
                     </div>
 
                     <div className="item-row">
+                      <div className="count">
+                        <button
+                          className="count-btn minus"
+                          onClick={() => handleUpdateQty(item.id, "minus")}
+                        >
+                          -
+                        </button>
+                        <span className="count-num">{item.quantity}</span>
+                        <button
+                          className="count-btn plus"
+                          onClick={() => handleUpdateQty(item.id, "plus")}
+                        >
+                          +
+                        </button>
+                      </div>
                       <div className="prices">
-                        <div className="count">
-                          <button
-                            className="count-btn"
-                            onClick={() => onUpdateQty(item.id, "minus")}
-                          >
-                            <i className="fa-solid fa-minus" />
-                          </button>
-                          <span className="count-num">{item.quantity}</span>
-                          <button
-                            className="count-btn"
-                            onClick={() => onUpdateQty(item.id, "plus")}
-                          >
-                            <i className="fa-solid fa-plus" />
-                          </button>
-                        </div>
-                        <p className="sum">
-                          ₩ {(item.price * item.quantity).toLocaleString()}
-                        </p>
+                        <span className="sum">
+                          {Number(item.price * item.quantity).toLocaleString()}
+                          원
+                        </span>
                       </div>
                     </div>
                   </div>
                 </li>
               ))}
             </ul>
-
-            <div className="mini-summary">
-              <div className="row-txt">
-                <span>주문금액</span>
-                <span>₩ {itemsTotal.toLocaleString()}</span>
-              </div>
-              <div className="row-txt">
-                <span>상품할인</span>
-                <span className="red-txt">
-                  -₩ {discount.toLocaleString()}
-                </span>
-              </div>
-              <div className="row-txt">
-                <span>
-                  배송비 <span className="gray-txt">(묶음배송 적용)</span>
-                </span>
-                <span>₩ {shippingFee.toLocaleString()}</span>
-              </div>
-              <div className="row-txt total">
-                <span>결제금액</span>
-                <span>₩ {finalTotal.toLocaleString()}</span>
-              </div>
-            </div>
           </div>
         </section>
 
-        {/* 오른쪽 영역 */}
-        <aside className="cart-right">
+        {/* 오른쪽: 장바구니 요약 */}
+        <section className="cart-right">
           <div className="summary-card">
-            <h3 className="summary-title">전체 합계</h3>
-
+            <div className="summary-title">장바구니 요약</div>
             <div className="summary-row">
-              <span>상품수</span>
-              <span>{totalQty}개</span>
-            </div>
-            <div className="summary-row">
-              <span>주문금액</span>
-              <span>₩ {itemsTotal.toLocaleString()}</span>
-            </div>
-            <div className="summary-row">
-              <span>상품할인</span>
-              <span className="red-txt">
-                -₩ {discount.toLocaleString()}
-              </span>
-            </div>
-            <div className="summary-row dashed">
-              <span>
-                배송비 <span className="gray-txt">(제주/도서 산간 배송비 포함)</span>
-                <span className="mobile-txt">(묶음배송 적용)</span>
-              </span>
-              <span>₩ {shippingFee.toLocaleString()}</span>
-            </div>
-
-            <div className="summary-divider" />
-
-            <div className="summary-total">
-              <span>총 결제금액</span>
-              <span>₩ {finalTotal.toLocaleString()}</span>
+              <span>합계</span>
+              <span>{Number(itemsTotal).toLocaleString()}원</span>
             </div>
             <div className="order-btn-wrap">
-              <button className="order-btn">
-                총 {totalQty}개 | {finalTotal.toLocaleString()}원 주문하기
-              </button>
+              <button className="order-btn">주문하기</button>
             </div>
           </div>
-        </aside>
+        </section>
       </div>
     </div>
   );
 };
 
 export default CartPage;
-
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import "./CartPage.scss";
-
-// const CartPage = ({ cartItems, onUpdate, onDelete }) => {
-//   const navigate = useNavigate();
-
-
-//   const [cartView, setCartView] = useState(false);
-
-
-//   const [checkedIds, setCheckedIds] = useState([]);
-
-//   const [itemsTotal, setItemsTotal] = useState(0);
-//   const [totalQty, setTotalQty] = useState(0);
-
-  
-//   useEffect(() => {
-//     setCartView(cartItems.length > 0);
-
-//     setCheckedIds(cartItems.map((item) => item.id));
-//   }, [cartItems]);
-
-//   useEffect(() => {
-//     const selectedItems = cartItems.filter((item) =>
-//       checkedIds.includes(item.id)
-//     );
-
-//     const totalPrice = selectedItems.reduce(
-//       (acc, item) => acc + item.price * item.quantity,
-//       0
-//     );
-//     const totalQuantity = selectedItems.reduce(
-//       (acc, item) => acc + item.quantity,
-//       0
-//     );
-
-//     setItemsTotal(totalPrice);
-//     setTotalQty(totalQuantity);
-//   }, [cartItems, checkedIds]);
-
-
-//   const handleBack = () => {
-//     navigate(-1);
-//   };
-
-//   const allChecked =
-//     cartItems.length > 0 && checkedIds.length === cartItems.length;
-
-//   const toggleAll = () => {
-//     if (allChecked) {
-//       setCheckedIds([]);
-//     } else {
-//       setCheckedIds(cartItems.map((item) => item.id));
-//     }
-//   };
-
-//   const toggleOne = (id) => {
-//     setCheckedIds((prev) =>
-//       prev.includes(id)
-//         ? prev.filter((itemId) => itemId !== id)
-//         : [...prev, id]
-//     );
-//   };
-
-//   const handleSelectedDelete = () => {
-//     checkedIds.forEach((id) => onDelete(id));
-//   };
-
-//   const shippingFee = itemsTotal === 0 ? 0 : 3000;
-//   const discount = itemsTotal >= 300000 ? 30000 : 0;
-//   const finalTotal = itemsTotal - discount + shippingFee;
-
-//   return (
-//     <div className="cart-page">
-//       <div className="back">
-//         <p className="back-icon" onClick={handleBack}>
-//           ←
-//         </p>
-//         <p className="cart-title">장바구니</p>
-//       </div>
-
-//       {cartView && (
-//         <div className="cart-layout">
-//           <section className="cart-left">
-//             <div className="cart-card">
-//               <div className="cart-toolbar">
-//                 <label className="check">
-//                   <input
-//                     type="checkbox"
-//                     checked={allChecked}
-//                     onChange={toggleAll}
-//                   />
-//                   전체 선택
-//                 </label>
-//                 <button className="delete-btn" onClick={handleSelectedDelete}>
-//                   선택삭제
-//                 </button>
-//               </div>
-
-//               <ul className="cart-list">
-//                 <p className="brand">PACEFY</p>
-//                 {cartItems.map((item) => (
-//                   <li className="cart-item" key={item.id}>
-//                     <label className="check item-check">
-//                       <input
-//                         type="checkbox"
-//                         checked={checkedIds.includes(item.id)}
-//                         onChange={() => toggleOne(item.id)}
-//                       />
-//                     </label>
-
-//                     <div className="item-info">
-//                       <div className="up">
-//                         <div className="list-img">
-//                           <img
-//                             src={require(`../assets/images/Shoes/${item.image}`)}
-//                             alt={`${item.title} ${item.category}`}
-//                           />
-//                         </div>
-
-//                         <div className="sameline">
-//                           <div className="txt">
-//                             <p className="item-title">
-//                               PACEFY {item.title}
-//                             </p>
-//                             <p className="sub-title">subname 들어갈 곳</p>
-//                           </div>
-//                           <button
-//                             className="remove"
-//                             onClick={() => onDelete(item.id)}
-//                           >
-//                             <i className="fa-solid fa-x"></i>
-//                           </button>
-//                         </div>
-//                       </div>
-
-//                       <div className="item-row">
-//                         <div className="prices">
-//                           <div className="count">
-//                             <button
-//                               className="count-btn"
-//                               onClick={() => onUpdate(item.id, "minus")}
-//                               disabled={item.quantity <= 1}
-//                             >
-//                               <i className="fa-solid fa-minus"></i>
-//                             </button>
-//                             <span className="count-num">
-//                               {item.quantity}
-//                             </span>
-//                             <button
-//                               className="count-btn"
-//                               onClick={() => onUpdate(item.id, "plus")}
-//                             >
-//                               <i className="fa-solid fa-plus"></i>
-//                             </button>
-//                           </div>
-//                           <p className="sum">
-//                             ₩{" "}
-//                             {(item.price * item.quantity).toLocaleString()}
-//                           </p>
-//                         </div>
-//                       </div>
-//                     </div>
-//                   </li>
-//                 ))}
-//               </ul>
-
-//               <div className="mini-summary">
-//                 <div className="row-txt">
-//                   <span>주문금액</span>
-//                   <span>₩ {itemsTotal.toLocaleString()}</span>
-//                 </div>
-//                 <div className="row-txt">
-//                   <span>상품할인</span>
-//                   <span className="red-txt">
-//                     -₩ {discount.toLocaleString()}
-//                   </span>
-//                 </div>
-//                 <div className="row-txt">
-//                   <span>
-//                     배송비 <span className="gray-txt">(묶음배송 적용)</span>
-//                   </span>
-//                   <span>₩ {shippingFee.toLocaleString()}</span>
-//                 </div>
-//                 <div className="row-txt total">
-//                   <span>결제금액</span>
-//                   <span>₩ {finalTotal.toLocaleString()}</span>
-//                 </div>
-//               </div>
-//             </div>
-//           </section>
-
-//           <aside className="cart-right">
-//             <div className="summary-card">
-//               <h3 className="summary-title">전체 합계</h3>
-
-//               <div className="summary-row">
-//                 <span>상품수</span>
-//                 <span>{totalQty}개</span>
-//               </div>
-//               <div className="summary-row">
-//                 <span>주문금액</span>
-//                 <span>₩ {itemsTotal.toLocaleString()}</span>
-//               </div>
-//               <div className="summary-row">
-//                 <span>상품할인</span>
-//                 <span className="red-txt">
-//                   -₩ {discount.toLocaleString()}
-//                 </span>
-//               </div>
-//               <div className="summary-row dashed">
-//                 <span>
-//                   배송비{" "}
-//                   <span className="gray-txt">
-//                     (제주/도서 산간 배송비 포함)
-//                   </span>
-//                   <span className="mobile-txt">(묶음배송 적용)</span>
-//                 </span>
-//                 <span>₩ {shippingFee.toLocaleString()}</span>
-//               </div>
-
-//               <div className="summary-divider" />
-
-//               <div className="summary-total">
-//                 <span>총 결제금액</span>
-//                 <span>₩ {finalTotal.toLocaleString()}</span>
-//               </div>
-//               <div className="order-btn-wrap">
-//                 <button className="order-btn">
-//                   총 {totalQty}개 | {finalTotal.toLocaleString()}원 주문하기
-//                 </button>
-//               </div>
-//             </div>
-//           </aside>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default CartPage;
