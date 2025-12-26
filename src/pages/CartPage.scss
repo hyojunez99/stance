@@ -5,13 +5,12 @@
 .cart-page {
   margin: 0 auto;
   max-width: 1024px;
-  // padding: 2rem;
   background: var(--Surface-100);
 }
 
 .back {
   padding: 1rem;
-  @include flex-layout(row, center, center, 1rem);
+  @include flex-layout(row, flex-start, center, 1rem);
 
   p {
     @include title-h1();
@@ -21,6 +20,9 @@
       
       
     }
+  }
+  @include mobile{
+    justify-content: center;
   }
 }
 
