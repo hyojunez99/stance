@@ -5,7 +5,7 @@
     width: 100vw;
     height: 720px;
     margin-left: calc(50% - 50vw);
-    overflow: hidden;
+    // overflow: hidden;
     background: #000;
     @include mobile{
         height: 513px;
@@ -25,19 +25,20 @@
     }
 }
 
-.banner-bg.current {
-    z-index: 1;
-    transform: translateX(0);
+.banner-bg.next{
+    z-index: 2;
+    transform: translateX(-100%);
 }
 
-.banner-bg.next {
-    z-index: 0;
+.banner-bg.current {
+    z-index: 1;
+    transform: translateX(100);
 }
 
 /* 오른쪽으로 슬라이드 */
 .banner.slide-right {
     .banner-bg.current {
-        transform: translateX(-100%);
+        transform: translateX(100%);
     }
     .banner-bg.next {
         transform: translateX(0);
@@ -77,10 +78,10 @@
   color: #fff;
   @include mobile{
     top: auto;
-    bottom: 80px;
-    left: 16px;
+    bottom: 96px;
+    left: 20px;
     transform: none;
-    max-width: 90%;
+    max-width: 260px;
   }
   h1 {
     margin-bottom: 16px;
@@ -158,8 +159,6 @@
   }
 }
 
-
-
 .arrow {
     position: absolute;
     top: 50%;
@@ -175,13 +174,8 @@
     @include mobile{
         display: none;
     }
-
-    &.left {
-        left: 24px;
-    }
-
     &.right {
-        right: 24px;
+        right: 10px;
     }
 
     &:hover {
@@ -199,14 +193,25 @@
     align-items: center;
     gap: 16px;
     pointer-events: none;
+    @include mobile{
+        left: 16px;
+        right: 16px;
+        bottom: 20px;
+        display: flex;
+        align-items: center;
     }
+}
 
     /* Progress bar */
     .banner-progress {
     flex: 1;
     height: 1px;
     background: rgba(255, 255, 255, 0.3);
-
+    @include mobile{
+        flex: 1;
+        height: 2px;
+        gap: 12px;
+    }
     span {
         display: block;
         height: 100%;
@@ -226,6 +231,11 @@
     border-radius: 20px;
     background: rgba(0, 0, 0, 0.35);
     white-space: nowrap;
+    @include mobile{
+        font-size: 12px;
+        padding: 4px 8px;
+        background: rgba(0, 0, 0, 0.35);
+    }
 
     .current {
         font-weight: 600;

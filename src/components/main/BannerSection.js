@@ -10,13 +10,12 @@ import banner05 from "../../assets/images/banner/banner-5.jpg";
 
 
 const banners = [
-  { img: banner01, x: "70%"},
+  { img: banner01, x: "70% 75%"},
   { img: banner02, x: "60%"},
   { img: banner03, x: "85%"},
   { img: banner04, x: "50%"},
   { img: banner05, x: "35%"},
 ];
-
 const SLIDE_DURATION = 8000;
 const TRANSITION_TIME = 600;
 
@@ -51,22 +50,28 @@ const handlePrev = ()=>{
 };
 
 // 자동 슬라이드
-useEffect(()=>{
+useEffect(()=>{  
   const interval = setInterval(()=>{
-    changeSlide(nextIndex, "right");
-  }, SLIDE_DURATION);
-  return ()=> clearInterval(interval);
-}, [current]);
+    setDirection("right");
+    setIsAnimating(true);
+
+    setTimeout(()=>{
+      setCurrent((prev)=>(prev + 1 )% total);
+      setIsAnimating(false);
+    }, TRANSITION_TIME);
+  },SLIDE_DURATION);
+  return () => clearInterval(interval);
+},[]);
 
 //렌더
 return(
   <section className={`banner slide-${direction}`}>
-    {/* 현재 이미지 */}
+          {/* 현재 이미지 */}
     <div
     className="banner-bg current"
     style={{
-      backgroundImage: `url(${banners[current].img})`,
-      backgroundPositionX: banners[current].x,
+      backgroundImage: `url(${banners[0].img})`,      
+      backgroundPosition: banners[current].position,
     }}
     />
     {/* 다음이미지 */}
@@ -84,6 +89,7 @@ return(
               : banners[prevIndex].x,
         }}
       />
+
       {/* 오버레이 */}
       <div className="banner-overlay" />
       {/* 고정 텍스트 */}

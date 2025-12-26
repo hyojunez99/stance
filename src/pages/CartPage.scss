@@ -1,0 +1,413 @@
+@use '../assets/scss/mixins' as *;
+@use '../assets/scss/fonts' as *;
+@use '../assets/scss/variables' as *;
+
+.cart-page {
+  margin: 0 auto;
+  max-width: 1024px;
+  // padding: 2rem;
+  background: var(--Surface-100);
+}
+
+.back {
+  @include flex-layout(row, flex-start, flex-start, 1rem);
+  margin-bottom: 1rem;
+
+  p {
+    @include title-h1();
+
+    @include mobile {
+      @include subtitle-L();
+    }
+  }
+}
+
+.back-icon {
+  display: none;
+
+  @include mobile {
+    display: inline-block;
+    max-width: 100%;
+
+  }
+}
+
+
+
+.cart-title {
+  @include title-h1();
+  text-align: left;
+
+  @include mobile {
+    flex: 1;
+    text-align: center;
+    @include subtitle-L();
+  }
+}
+
+
+.cart-layout {
+  @include flex-layout(row, space-between, flex-start,3rem);
+
+
+  @include mobile {
+    @include flex-layout(column, flex-start, stretch);
+    padding: 1rem;
+  }
+
+  .cart-left,
+  .cart-right {
+    width: 100%;
+  }
+}
+
+
+
+.cart-card {
+  border: 1px solid var(--Border-200);
+  background: #fff;
+  overflow: hidden; // 
+  width: 100%;
+
+  @include mobile {
+    overflow: visible; // 제거할지 말지 확인해야함
+  }
+
+  .cart-toolbar {
+    @include flex-layout(row, space-between, center, 1rem);
+    padding: 0.5rem 1rem;
+    background: var(--Surface-200);
+
+    .check {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      @include body-M();
+      color: var(--Text-400);
+
+      input {
+        width: 24px;
+        height: 24px;
+
+        @include mobile {
+          width: 20px;
+          height: 20px
+        }
+      }
+    }
+
+    .delete-btn {
+      @include body-M();
+      color: var(--Text-300);
+      border-color: var(--Border-200);
+      background-color: var(--Static-white);
+      padding: 0.2rem 0.5rem;
+    }
+  }
+}
+
+
+
+
+.cart-list {
+  padding: 0.5rem 0;
+  padding: 0.5rem 0;
+
+  .brand {
+    @include subtitle-L();
+    color: var(--Text-400);
+    margin: 0 0 0.5rem 1rem;
+    padding: 0.5rem;
+  }
+
+  .cart-item {
+    @include flex-layout(row, flex-start, center, 1rem);
+    padding: 1rem;
+    border-bottom: 1px solid var(--Border-100);
+    border-top: 1px solid var(--Border-100);
+
+    @include mobile {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    input {
+      width: 24px;
+      height: 24px;
+
+      @include mobile {
+        width: 20px;
+        height: 20px
+      }
+    }
+
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+/* 이미지(일단 빈 박스) */
+.list-img {
+  flex: 0 0 68px;
+  width: 68px;
+  height: 68px;
+  background: var(--Surface-200);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    object-fit: cover; 
+    object-position: center;
+  }
+}
+
+
+.item-info {
+  width: 100%;
+  min-width: 0;
+
+  .up {
+    @include flex-layout(row, space-between, center);
+  }
+
+  .sameline {
+    flex: 1;
+    @include flex-layout(row, space-between, "", 2rem);
+    padding: 0.5rem;
+  }
+
+  .item-title {
+    @include body-M();
+
+  }
+
+  .sub-title {
+    @include body-S();
+    color: var(--Text-300);
+  }
+}
+
+/* 수량 + 가격 영역 */
+.item-row {
+
+  @include flex-layout(row, space-between, center, 0.8rem);
+
+  @include mobile {
+    // width: 100%;
+  }
+
+  .count {
+    display: inline-flex;
+    align-items: center;
+    border: 0.5px solid var(--Primary-100);
+
+    @include mobile {
+      order: 0;
+      justify-content: flex-start;
+    }
+  }
+
+  .count-btn {
+    width: 26px;
+    height: 26px;
+    border: none;
+    background: none;
+    color: var(--Primary-300);
+    cursor: pointer;
+
+    i {
+      font-size: 20px;
+    }
+
+    &:first-child {
+      border-right: 0.5px solid var(--Primary-100);
+    }
+
+    &:last-child {
+      border-left: 0.5px solid var(--Primary-100);
+    }
+  }
+
+  .count-num {
+    width: 28px;
+    text-align: center;
+    @include subtitle-M();
+  }
+
+  .prices {
+    width: 100%;
+    @include flex-layout(row, space-between, center, 0.5rem);
+    text-align: right;
+
+    @include mobile {
+      order: -1;
+      text-align: right;
+      width: 100%;
+    }
+
+    .sum {
+      @include subtitle-M();
+      color: var(--Text-400);
+    }
+  }
+
+}
+
+.remove {
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  i {
+    color: var(--Text-200);
+  }
+}
+
+
+
+
+
+.mini-summary {
+  padding: 14px 16px;
+  border-top: 1px solid #e4e7ec;
+  background: #fff;
+  @include body-M();
+  color: var(--Static-black);
+
+  .row-txt {
+    @include flex-layout(row, space-between, center);
+    padding: 8px 0;
+
+    &.total {
+
+      padding-top: 12px;
+
+      span:nth-child(2) {
+        @include subtitle-M();
+      }
+    }
+  }
+}
+
+
+
+
+.cart-right {
+  position: sticky;
+  top: 60px;
+
+  @include mobile {
+    position: static;
+    top: auto;
+  }
+
+
+  .summary-card {
+    border: 1px solid var(--Border-200);
+    padding: 1.2rem 1rem;
+    @include body-L();
+    color: var(--Static-black);
+
+    @include mobile {
+      background-color: var(--Border-200)
+    }
+
+
+    .summary-title {
+      @include subtitle-L();
+      margin-bottom: 14px;
+
+    }
+
+    .summary-row {
+      white-space: nowrap;
+
+      .mobile-txt {
+        display: none;
+      }
+
+      @include mobile {
+        gap: 0.7rem;
+
+        .mobile-txt {
+          display: inline
+        }
+
+        .gray-txt {
+          display: none;
+        }
+      }
+
+      @include flex-layout(row, space-between, center);
+      padding: 10px 0;
+      white-space: nowrap;
+
+      .dashed {
+        padding-bottom: 1rem;
+
+      }
+
+    }
+
+    .summary-divider {
+      height: 1px;
+      margin: 10px 0 6px;
+      border-bottom: 1px dashed var(--Border-200);
+    }
+
+    .summary-total {
+      @include flex-layout(row, space-between, center);
+      padding: 14px 0 12px 1rem;
+      @include subtitle-L();
+      border-bottom: 1px solid var(--Border-100);
+
+      @include mobile {
+        padding: 1rem 0;
+      }
+
+      span:nth-child(2) {
+        @include title-h4();
+      }
+    }
+
+    .order-btn-wrap {
+      padding: 1.5rem;
+
+      @include mobile {
+        padding: 0.8rem 0 1rem;
+      }
+
+      .order-btn {
+        border: none;
+        padding: 0.8rem 1rem;
+        cursor: pointer;
+        width: 100%;
+        background: var(--Primary-300);
+        color: var(--Static-white);
+        @include subtitle-L();
+      }
+    }
+
+  }
+}
+
+
+/* 할인 */
+.red-txt {
+  color: var(--System-error);
+}
+
+.gray-txt {
+  margin-left: 4px;
+  color: var(--Text-200);
+}
