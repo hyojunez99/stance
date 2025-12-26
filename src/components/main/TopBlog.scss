@@ -17,7 +17,7 @@
         padding-bottom: 0.75rem;
       }
       p {
-        transition: 0.3s;
+        transition: 0.5s;
         cursor: pointer;
         @include flex-layout($gap: 0.25rem);
         font-weight: 400;
@@ -27,7 +27,8 @@
           height: 1.5rem;
         }
         &:hover {
-          color: var(--Text-200);
+          color: var(--Text-400);
+          font-weight: bolder;
         }
       }
     }

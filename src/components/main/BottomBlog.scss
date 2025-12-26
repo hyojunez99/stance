@@ -37,6 +37,10 @@
           transform: translate(-50%, -50%);
           color: var(--Static-white);
         }
+        &:hover h2 {
+          transition: 0.3s;
+          color: var(--Primary-300);
+        }
       }
     }
     .btn {

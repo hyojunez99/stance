@@ -98,6 +98,21 @@ const ProductSection = () => {
           </div>
         </div>
       </div>
+      <div className="indi-bottom">
+        <div className="indicator">
+          {Array.from({ length: Math.ceil(totalItems / 2) }).map((_, idx) => {
+            const isActive =
+              currentIndex >= idx * 2 && currentIndex < idx * 2 + 2;
+            return (
+              <span
+                key={idx}
+                className={isActive ? "active" : ""}
+                onClick={() => setCurrentIndex(idx * 2)}
+              ></span>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 };
