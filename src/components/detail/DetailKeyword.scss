@@ -1,0 +1,124 @@
+// $keyword-title-color: #222;
+// $keyword-border: #ddd;
+
+// .detail-keyword-section {
+//   max-width: 1200px;
+//   margin: 50px auto;
+//   padding: 0 20px;
+//   text-align: center; // 제목 중앙 정렬
+
+//   .section-title {
+//     font-size: 26px;
+//     font-weight: bold;
+//     color: $keyword-title-color;
+//     margin-bottom: 30px;
+//   }
+
+//   .keyword-gallery {
+//     display: flex;
+//     justify-content: center; // 키워드 이미지 중앙 정렬
+//     gap: 20px; // 이미지 간 간격
+//     flex-wrap: wrap; // 화면이 좁아지면 줄바꿈
+
+//     .keyword-item {
+//       width: 180px; // 이미지 너비 (이미지에 보이는 크기 추정)
+//       height: 180px; // 이미지 높이
+//       border: 1px solid $keyword-border;
+//       border-radius: 8px;
+//       overflow: hidden;
+//       cursor: pointer;
+//       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+//       transition: transform 0.2s ease-in-out;
+
+//       &:hover {
+//         transform: translateY(-5px);
+//       }
+
+//       img {
+//         width: 100%;
+//         height: 100%;
+//         object-fit: cover; // 이미지가 잘리지 않고 채워지도록
+//         display: block;
+//       }
+//     }
+//   }
+// }
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+@use "../../assets/scss/variables" as *;
+@use "../../assets/scss/mixins" as *;
+@use "../../assets/scss/fonts" as *;
+
+/* 아래에 기존 스타일 코드 유지 */
+
+.detail-keyword {
+    padding: 80px 0 120px;
+    
+    .inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .title {
+        @include title-h2;
+        margin-bottom: 30px;
+        text-align: left;
+    }
+
+    .keyword-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+
+        @include mobile {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .keyword-item {
+            position: relative;
+            aspect-ratio: 1/1;
+            border-radius: 8px; 
+            overflow: hidden;
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s;
+            }
+
+            .overlay {
+                position: absolute;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.3);
+                @include flex-layout;
+                opacity: 0;
+                transition: opacity 0.3s;
+
+                span {
+                    color: var(--Static-white);
+                    @include subtitle-S;
+                    border: 1px solid var(--Static-white);
+                    padding: 4px 12px;
+                    border-radius: 20px;
+                }
+            }
+
+            &:hover {
+                img {
+                    transform: scale(1.1);
+                }
+                .overlay {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+

@@ -5,44 +5,65 @@
   padding: 5rem 3rem;
   h2 {
     font-size: 2rem;
+    padding-bottom: 14px;
   }
   ul {
     @include flex-layout($gap: 0);
     width: 100%;
     li {
+      flex: 1 1 25%;
       cursor: pointer;
       border: 1px solid #0073e5;
       border-right: none;
       &:nth-last-child(1) {
         border-right: 1px solid #0073e5;
       }
-      width: 25%;
       img {
-        display: block;
         width: 100%;
-        height: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
         object-fit: cover;
-        aspect-ratio: 1/1;
+        display: block;
+        flex-shrink: 0;
       }
       .news-title {
         padding: 1.25rem;
         > p {
-          font-size: 1.25rem;
-          height: 4rem;
+          height: 4.5rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: clamp(1rem, 1.5vw, 1.25rem);
+          padding-bottom: 1rem;
+          overflow-wrap: break-word;
+          word-break: break-word;
         }
         .news-txt {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          flex-grow: 1;
           @include flex-layout(row, flex-start, center, 0);
+          flex-wrap: wrap;
+          gap: 0.5rem;
           p {
             font-size: 0.875rem;
             font-weight: bolder;
             color: var(--Primary-300);
+            margin: 0;
+            overflow-wrap: break-word;
+            word-break: break-word;
           }
         }
+      }
+      &:hover p {
+        transition: 0.3s;
+        color: var(--Primary-300);
+        font-weight: bolder;
       }
     }
   }
 }
 
+// 모바일
 @include mobile {
   #runningnews {
     @include flex-layout(column);

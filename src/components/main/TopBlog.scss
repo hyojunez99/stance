@@ -17,12 +17,18 @@
         padding-bottom: 0.75rem;
       }
       p {
+        transition: 0.5s;
+        cursor: pointer;
         @include flex-layout($gap: 0.25rem);
         font-weight: 400;
         span {
           @include flex-layout();
           width: 1.5rem;
           height: 1.5rem;
+        }
+        &:hover {
+          color: var(--Text-400);
+          font-weight: bolder;
         }
       }
     }
@@ -31,13 +37,13 @@
 
 // 모바일 버전
 @include mobile {
-  #hello{
-    .hello-box{
-      .txt{
-        h2{
+  #hello {
+    .hello-box {
+      .txt {
+        h2 {
           font-size: 1.125rem;
         }
-        p{
+        p {
           font-size: 0.75rem;
         }
       }

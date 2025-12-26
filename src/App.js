@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 
 import Layout from "./layout/Layout";
 import MainPage from "./pages/MainPage";
@@ -7,6 +7,7 @@ import CategoryPage from "./pages/CategoryPage";
 import "./assets/scss/global.scss";
 
 import { useState } from "react";
+import DetailPage from "./pages/DetailPage";
 const App = () => {
 
   const [cartItems, setCartItems] = useState([]);
@@ -68,7 +69,8 @@ const App = () => {
   // };
 
   return (
-    <BrowserRouter>
+    // <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route element={<Layout />} />
         <Route path="/" element={<MainPage onAdd={handleAddToCart}/>} />
@@ -78,7 +80,8 @@ const App = () => {
           onDelete={handleCartDelete} />} />
         <Route path="/category" element={<CategoryPage  onAdd={handleAddToCart}/>} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
+    // </BrowserRouter>
   );
 };
 

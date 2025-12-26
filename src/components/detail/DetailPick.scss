@@ -1,0 +1,142 @@
+// $title-color: #222;
+// $card-bg: #fff;
+// $card-border: #eee;
+// $card-text: #333;
+// $card-price: #555;
+
+// .detail-pick-section {
+//   max-width: 1200px;
+//   margin: 50px auto;
+//   padding: 0 20px;
+//   text-align: center; // 제목 중앙 정렬
+
+//   .section-title {
+//     font-size: 26px;
+//     font-weight: bold;
+//     color: $title-color;
+//     margin-bottom: 30px;
+//   }
+
+//   .product-carousel {
+//     display: flex;
+//     justify-content: center; // 카드 중앙 정렬
+//     gap: 20px; // 카드 간 간격
+//     flex-wrap: wrap; // 화면이 좁아지면 줄바꿈
+
+//     .product-card {
+//       width: 200px; // 카드 너비 (이미지에 보이는 크기 추정)
+//       border: 1px solid $card-border;
+//       border-radius: 8px;
+//       overflow: hidden; // 이미지 튀어나오지 않게
+//       background-color: $card-bg;
+//       padding: 15px;
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center; // 카드 내부 요소 중앙 정렬
+//       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); // 은은한 그림자
+//       transition: transform 0.2s ease-in-out;
+//       cursor: pointer;
+
+//       &:hover {
+//         transform: translateY(-5px); // 호버 시 살짝 떠오르는 효과
+//       }
+
+//       img {
+//         width: 100%;
+//         height: auto;
+//         margin-bottom: 15px;
+//       }
+
+//       .product-card-name {
+//         font-size: 16px;
+//         color: $card-text;
+//         margin-bottom: 5px;
+//         font-weight: 500;
+//       }
+
+//       .product-card-price {
+//         font-size: 14px;
+//         color: $card-price;
+//         font-weight: bold;
+//       }
+//     }
+//   }
+// }
+
+@use "../../assets/scss/variables" as *;
+@use "../../assets/scss/mixins" as *;
+@use "../../assets/scss/fonts" as *;
+
+/* 아래에 기존 스타일 코드 유지 */
+
+.detail-pick {
+    background-color: var(--Surface-200);
+    padding: 80px 0;
+
+    .inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .title {
+        @include title-h2;
+        text-align: letr;
+        margin-bottom: 40px;
+    }
+
+    .pick-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+
+        @include mobile {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .pick-item {
+            background: var(--Surface-100);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+
+            &:hover {
+                transform: translateY(-5px);
+            }
+
+            .thumb {
+                width: 100%;
+                aspect-ratio: 1/1;
+                background-color: var(--Border-100);
+                
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .text-box {
+                padding: 16px;
+                text-align: center;
+
+                .sub-title {
+                    @include body-S;
+                    color: var(--Text-300);
+                    margin-bottom: 4px;
+                }
+                .prod-title {
+                    @include subtitle-L;
+                    color: var(--Text-400);
+                    margin-bottom: 8px;
+                }
+                .price {
+                    @include subtitle-M;
+                    color: var(--Primary-400);
+                }
+            }
+        }
+    }
+}

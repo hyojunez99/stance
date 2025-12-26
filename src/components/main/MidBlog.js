@@ -26,7 +26,7 @@ const MidBlog = () => {
             </div>
           </div>
         </div>
-        <p>1 / 5</p>
+        <p>1/5</p>
       </div>
     </section>
   );

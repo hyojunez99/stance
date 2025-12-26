@@ -11,19 +11,24 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 100%;
-
     li {
+      border-right: 1px solid #0073e5;
       cursor: pointer;
-
       background-color: rgba(245, 245, 245, 1);
+      &:hover {
+        background-color: var(--Primary-100);
+      }
       .img-wrap {
         position: relative;
       }
       img {
+        transition: transform 0.5s ease;
         display: block;
         width: 100%;
         aspect-ratio: 1 / 1;
-        border-right: 1px solid #0073e5;
+        &:hover {
+          transform: scale(1.05);
+        }
       }
       .num {
         position: absolute;
@@ -48,6 +53,7 @@
       }
       .best-txt {
         border: 1px solid #0073e5;
+        border-right: none;
         border-left: none;
         background-color: var(--Static-white);
         padding: 1.25rem;
@@ -87,6 +93,14 @@
           }
         }
       }
+      &:hover .best-txt {
+        transition: 0.5s;
+        background-color: var(--Primary-100);
+      }
+      &:hover p.sub1 {
+        transition: 0.5s;
+        font-weight: bolder;
+      }
     }
   }
   .indi-bottom {
@@ -117,10 +131,12 @@
         p {
           font-size: 1.125rem;
           color: var(--Primary-300);
-          display: flex;
-          align-items: center;
-          gap: 4px;
+          @include flex-layout(row, center, center, 4px);
           white-space: nowrap;
+          &:hover {
+            transition: 0.3s;
+            font-weight: bolder;
+          }
         }
       }
     }
@@ -194,11 +210,10 @@
     }
   }
 }
-// 데스크 탑
 @media (max-width: 768px) {
   #paceypick {
     ul {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 2fr);
     }
   }
 }

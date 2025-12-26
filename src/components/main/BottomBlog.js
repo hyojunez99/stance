@@ -5,7 +5,7 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 const BottomBlog = () => {
   const itemsPerView = 4; // 한 화면에 4개 보여주기
-  const moveCount = 2;    // 한 번에 2개씩 이동
+  const moveCount = 2; // 한 번에 2개씩 이동
   const totalItems = listDate.length;
 
   // 앞뒤로 충분히 복제
@@ -16,8 +16,8 @@ const BottomBlog = () => {
   const [transition, setTransition] = useState(true);
   const liWidthPercent = 100 / itemsPerView; // li 폭
 
-  const nextSlide = () => setCurrentIndex(prev => prev + moveCount);
-  const prevSlide = () => setCurrentIndex(prev => prev - moveCount);
+  const nextSlide = () => setCurrentIndex((prev) => prev + moveCount);
+  const prevSlide = () => setCurrentIndex((prev) => prev - moveCount);
 
   // 무한루프 처리
   useEffect(() => {
@@ -45,8 +45,6 @@ const BottomBlog = () => {
         <ul
           className="slider"
           style={{
-            display: "flex",
-            gap: "0.5rem",
             transform: `translateX(-${currentIndex * liWidthPercent}%)`,
             transition: transition ? "transform 0.5s ease-in-out" : "none",
           }}

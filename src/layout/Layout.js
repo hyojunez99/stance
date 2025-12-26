@@ -1,10 +1,9 @@
 import { Outlet } from "react-router-dom"
-import Gnb from "../components/common/Gnb"
-
+import Header from "../components/main/Header"
 const Layout = () => {
   return (
     <div id="app">
-      <Gnb />
+      <Header />
       <main>
         <Outlet />
       </main>

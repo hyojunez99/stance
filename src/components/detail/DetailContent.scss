@@ -1,0 +1,101 @@
+// $tab-text-color: #555;
+// $tab-active-color: #000;
+// $tab-border-color: #ddd;
+
+// .detail-content-section {
+//   max-width: 1000px; // 내용 영역 최대 너비 (이미지 너비에 맞게 조절)
+//   margin: 50px auto; // 위아래 간격, 중앙 정렬
+//   padding: 0 20px; // 좌우 여백
+
+//   .content-tab-menu {
+//     border-bottom: 1px solid $tab-border-color;
+//     margin-bottom: 30px; // 이미지 컨테이너와의 간격
+
+//     ul {
+//       display: flex;
+//       list-style: none;
+//       padding: 0;
+//       margin: 0;
+//       justify-content: center; // 탭 메뉴 중앙 정렬
+
+//       li {
+//         margin: 0 20px;
+//         padding-bottom: 15px; // 아래쪽 경계선과의 간격
+//         font-size: 18px;
+//         font-weight: 500; // 보통 폰트 두께
+
+//         a {
+//           text-decoration: none;
+//           color: $tab-text-color;
+//           transition: color 0.3s ease;
+//         }
+
+//         &.active {
+//           border-bottom: 3px solid $tab-active-color; // 활성화 탭 밑줄
+//           a {
+//             color: $tab-active-color;
+//             font-weight: bold; // 활성화 탭 폰트 두껍게
+//           }
+//         }
+//         &:hover:not(.active) {
+//             a {
+//                 color: darken($tab-text-color, 10%);
+//             }
+//         }
+//       }
+//     }
+//   }
+
+//   .description-images-container {
+//     img {
+//       width: 100%;
+//       height: auto;
+//       display: block; // 이미지 간 불필요한 여백 제거
+//       margin-bottom: 20px; // 이미지 간 간격
+//       &:last-child {
+//         margin-bottom: 0;
+//       }
+//     }
+//   }
+// }
+
+@use "../../assets/scss/variables" as *;
+@use "../../assets/scss/mixins" as *;
+@use "../../assets/scss/fonts" as *;
+
+/* 아래에 기존 스타일 코드 유지 */
+
+.detail-content {
+    width: 100%;
+    max-width: 1000px;
+    margin: 80px auto;
+    padding: 0 20px;
+
+    .content-header {
+        text-align: center;
+        margin-bottom: 40px;
+        
+        h3 {
+            @include title-h3;
+            color: var(--Text-400);
+            display: inline-block;
+            border-bottom: 2px solid var(--Primary-300);
+            padding-bottom: 10px;
+        }
+    }
+
+    .content-imgs {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        .img-box {
+            width: 100%;
+            
+            img {
+                width: 100%;
+                display: block;
+            }
+        }
+    }
+}
