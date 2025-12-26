@@ -10,7 +10,7 @@ import banner05 from "../../assets/images/banner/banner-5.jpg";
 
 
 const banners = [
-  { img: banner01, x: "70% 75%"},
+  { img: banner01, x: "65% 85%"},
   { img: banner02, x: "60%"},
   { img: banner03, x: "85%"},
   { img: banner04, x: "50%"},
@@ -21,7 +21,7 @@ const TRANSITION_TIME = 600;
 
 const BannerSection = () => {
   const [ current,  setCurrent ] = useState(0); //현재 슬라이드
-  const [ direction, setDirection ] = useState("right"); //이동방향
+  const [ direction, setDirection ] = useState("unll"); //이동방향
   const [ isAnimating, setIsAnimating ] = useState(false); //중복 클릭 방지
 
   const total = banners.length;
@@ -37,6 +37,7 @@ const changeSlide = (next, dir) =>{
   
   setTimeout(()=>{
     setCurrent(next);
+    setDirection(null);
     setIsAnimating(false);
   }, TRANSITION_TIME);
 };
@@ -65,13 +66,13 @@ useEffect(()=>{
 
 //렌더
 return(
-  <section className={`banner slide-${direction}`}>
+  <section className={`banner ${direction ? `slide-${direction}`:""}`}>
           {/* 현재 이미지 */}
     <div
     className="banner-bg current"
     style={{
       backgroundImage: `url(${banners[0].img})`,      
-      backgroundPosition: banners[current].position,
+      backgroundPosition: banners[current].x,
     }}
     />
     {/* 다음이미지 */}
@@ -99,7 +100,7 @@ return(
         <span className="title-box">RUN YOUR</span>
         <span className="title-box">FACE</span>
       </h1>
-      <p>러닝의 변화, 지금 시작하세요.</p>
+      <p>러닝부터 일상까지, 하나로.</p>
       <span className="banner-link">더보기 →</span>
   </div>
 

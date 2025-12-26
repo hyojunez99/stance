@@ -69,6 +69,7 @@ header {
     }
 
     li {
+      @include body-M;
       padding: 10px 0;
       text-align: center;
       width: auto;

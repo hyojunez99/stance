@@ -10,7 +10,6 @@ const Header = () => {
         <h1 className="logo">
           <Link to="/">PACEY</Link>
         </h1>
-        Gnb
         <Gnb />
         {/* 로그인 */}
         <div className="util">

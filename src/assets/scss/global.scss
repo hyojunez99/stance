@@ -23,4 +23,5 @@ html {
 }
 body {
   @include font-body;
+  overflow-x: hidden;
 }

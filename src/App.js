@@ -33,13 +33,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />} />
-        <Route path="/" element={<MainPage />} />
-        <Route path="/cart" element={<CartPage
-          cartItems={cartItems}
-          onUpdateQty={onUpdateQty}
-          onDelete={onDelete} />} />
-        <Route path="/category" element={<CategoryPage />} />
+        <Route element={<Layout />} >
+          <Route path="/" element={<MainPage />} />
+          <Route path="/cart" element={<CartPage
+            cartItems={cartItems}
+            onUpdateQty={onUpdateQty}
+            onDelete={onDelete} />} />
+          <Route path="/category" element={<CategoryPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
