@@ -6,12 +6,12 @@ import DetailPick from "../components/detail/DetailPick";
 import DetailKeyword from "../components/detail/DetailKeyword";
 
 const DetailPage = () => {
-  const { id } = useParams();  // URL에서 id를 가져옴
+  const { id } = useParams(); // URL에서 id를 가져옴
 
   return (
     <div className="detail-page">
       <DetailTop />
-      <DetailContent id={id} />  {/* id를 DetailContent에 전달 */}
+      <DetailContent id={id} /> {/* id를 DetailContent에 전달 */}
       <DetailPick />
       <DetailKeyword />
     </div>

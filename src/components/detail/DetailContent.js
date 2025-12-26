@@ -8,20 +8,21 @@ const DetailContent = ({ id }) => {
 
   if (!product) return <p>상품을 찾을 수 없습니다.</p>;
 
+  // 첫 번째 이미지 한 개만 보여주기
+  const firstImage = product.detailimage[5];
+
   return (
     <section className="detail-content">
       <div className="content-header">
         <h3>상품 정보</h3>
       </div>
       <div className="content-imgs">
-        {product.detailimage.map((imgFileName, idx) => (
-          <div className="img-wrap" key={idx}>
-            <img
-              src={require(`../../assets/images/Shoes/${imgFileName}`)}
-              alt={`상품 상세 이미지 ${idx + 1}`}
-            />
-          </div>
-        ))}
+        <div className="img-wrap">
+          <img
+            src={require(`../../assets/images/Shoes/${firstImage}`)} // 첫 번째 이미지
+            alt="상품 상세 이미지 1"
+          />
+        </div>
       </div>
     </section>
   );
