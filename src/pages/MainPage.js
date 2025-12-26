@@ -12,7 +12,7 @@ import TopBlog from "../components/main/TopBlog";
 const MainPage = () => {
   return (
     <div className="main-page">
-      <Header/>
+      {/* <Header/> */}
       <BannerSection />
       <CategorySection />
       <TopBlog />

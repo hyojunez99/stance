@@ -1,13 +1,15 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+
 import Layout from "./layout/Layout";
 import MainPage from "./pages/MainPage";
 import CartPage from "./pages/CartPage";
 import CategoryPage from "./pages/CategoryPage";
-import DetailPage from "./pages/DetailPage";
-import { useState } from "react";
 import "./assets/scss/global.scss";
 
+import { useState } from "react";
+import DetailPage from "./pages/DetailPage";
 const App = () => {
+  //장바구니 아이템 임시입니다
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
@@ -24,7 +26,6 @@ const App = () => {
       image: "shoes01-1.jpg",
     },
   ]);
-
   const onUpdateQty = (id, delta) => {
     setCartItems((prev) =>
       prev.map((item) =>
@@ -33,45 +34,15 @@ const App = () => {
           : item
       )
     );
-    setCartItems(items);
-    } else{
-      const items = [...cartItems, {...product, quantity:1}];
-      setCartItems(items);
-    }
   };
-  //  const handleCartDelete = (id) => {
-  //   const items = cartItems.filter((item) => item.id !== id);
-  //   setCartItems(items);
-  // };
 
+  // ✅ 삭제
   const onDelete = (id) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
-  const handleCartDelete = (id)=>{
-  const items = cartItems.filter((item)=>{
-    return item.id !== id;
-  });
-  setCartItems(items);
-}
-
-
-
-  // const onUpdateQty = (id, delta) => {
-  //   setCartItems((prev) =>
-  //     prev.map((item) =>
-  //       item.id === id
-  //         ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-  //         : item
-  //     )
-  //   );
-  // };
-
-  // // ✅ 삭제
-  // const onDelete = (id) => {
-  //   setCartItems((prev) => prev.filter((item) => item.id !== id));
-  // };
 
   return (
+    // <BrowserRouter>
     <HashRouter>
       <Routes>
         <Route element={<Layout />}>
@@ -91,6 +62,7 @@ const App = () => {
         </Route>
       </Routes>
     </HashRouter>
+    // </BrowserRouter>
   );
 };
 

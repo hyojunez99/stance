@@ -14,7 +14,6 @@ const Header = () => {
 
         {/* 네비게이션 */}
         <Gnb />
-
         {/* 로그인 */}
         <div className="util">
           <Link to="/login">LOG IN</Link>
