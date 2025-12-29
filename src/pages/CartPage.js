@@ -1,46 +1,114 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CartPage.scss";
 
 const CartPage = () => {
   const navigate = useNavigate();
-
-  // 뒤로 가기
   const handleBack = () => navigate(-1);
 
+  // 장바구니 목록 (localStorage)
   const [cartItems, setCartItems] = useState([]);
 
-  // 장바구니 아이템을 로컬 스토리지에서 가져오기
+  // mount 시 localStorage -> state
   useEffect(() => {
-    const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartItems(savedCartItems);
+    const saved = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItems(saved);
   }, []);
 
-  // 수량 변경
+  // state + localStorage 동기화 헬퍼
+  const syncCart = (items) => {
+    setCartItems(items);
+    localStorage.setItem("cart", JSON.stringify(items));
+  };
+
+  // ================= 체크박스 관련 =================
+  const [checkedIds, setCheckedIds] = useState(() => new Set());
+
+  // cartItems 바뀔 때 기본값 = 전체 선택
+  useEffect(() => {
+    setCheckedIds(new Set(cartItems.map((_, idx) => idx)));
+  }, [cartItems]);
+
+  const allChecked = useMemo(() => {
+    if (cartItems.length === 0) return false;
+    return cartItems.every((_, idx) => checkedIds.has(idx));
+  }, [cartItems, checkedIds]);
+
+  const selectedItems = useMemo(
+    () => cartItems.filter((_, idx) => checkedIds.has(idx)),
+    [cartItems, checkedIds]
+  );
+
+  const toggleAll = () => {
+    if (allChecked) {
+      setCheckedIds(new Set());
+    } else {
+      setCheckedIds(new Set(cartItems.map((_, idx) => idx)));
+    }
+  };
+
+  const toggleOne = (index) => {
+    setCheckedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+  };
+
+  const handleSelectedDelete = () => {
+    const idsToDelete = selectedItems.map((i) => i.id);
+    const updated = cartItems.filter((item) => !idsToDelete.includes(item.id));
+    syncCart(updated);
+  };
+
+  // ================= 수량 변경 / 삭제 =================
   const handleUpdateQty = (id, action) => {
-    const updatedItems = cartItems.map((item) => {
-      if (item.id === id) {
-        if (action === "plus") item.quantity += 1;
-        else if (action === "minus" && item.quantity > 1) item.quantity -= 1;
+    const updated = cartItems.map((item) => {
+      if (item.id !== id) return item;
+
+      if (action === "plus") {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      if (action === "minus" && item.quantity > 1) {
+        return { ...item, quantity: item.quantity - 1 };
       }
       return item;
     });
-    setCartItems(updatedItems);
-    localStorage.setItem("cart", JSON.stringify(updatedItems)); // 로컬 스토리지에 업데이트
+
+    syncCart(updated);
   };
 
-  // 아이템 삭제
   const handleDelete = (id) => {
-    const updatedItems = cartItems.filter((item) => item.id !== id);
-    setCartItems(updatedItems);
-    localStorage.setItem("cart", JSON.stringify(updatedItems)); // 로컬 스토리지에 업데이트
+    const updated = cartItems.filter((item) => item.id !== id);
+    syncCart(updated);
   };
 
-  // 금액 계산
-  const itemsTotal = useMemo(() => {
-    return cartItems.reduce((acc, i) => acc + i.price * i.quantity, 0);
-  }, [cartItems]);
+  // ================= 금액 계산 (선택된 항목 기준) =================
+  const itemsTotal = useMemo(
+    () => selectedItems.reduce((acc, i) => acc + i.price * i.quantity, 0),
+    [selectedItems]
+  );
 
+  const totalQty = useMemo(
+    () => selectedItems.reduce((acc, i) => acc + i.quantity, 0),
+    [selectedItems]
+  );
+
+  const shippingFee = useMemo(() => {
+    if (itemsTotal === 0) return 0;
+    return 3000;
+  }, [itemsTotal]);
+
+  // 30만원 이상 3만원 할인
+  const discount = useMemo(() => {
+    if (itemsTotal >= 300000) return 30000;
+    return 0;
+  }, [itemsTotal]);
+
+  const finalTotal = itemsTotal - discount + shippingFee;
+
+  // ================= 렌더 =================
   return (
     <div className="cart-page">
       <div className="back">
@@ -51,12 +119,39 @@ const CartPage = () => {
       </div>
 
       <div className="cart-layout">
-        {/* 왼쪽: 장바구니 목록 */}
+        {/* 왼쪽 : 목록 */}
         <section className="cart-left">
           <div className="cart-card">
+            {/* 상단 툴바 */}
+            <div className="cart-toolbar">
+              <label className="check">
+                <input
+                  type="checkbox"
+                  checked={allChecked}
+                  onChange={toggleAll}
+                />
+                전체 선택
+              </label>
+              <button className="delete-btn" onClick={handleSelectedDelete}>
+                선택삭제
+              </button>
+            </div>
+
+            {/* 리스트 */}
             <ul className="cart-list">
-              {cartItems.map((item) => (
-                <li className="cart-item" key={item.id}>
+              <p className="brand">PACEFY</p>
+              {cartItems.map((item, index) => (
+                <li className="cart-item" key={index}>
+                  {/* 개별 체크박스 */}
+                  <label className="check item-check">
+                    <input
+                      type="checkbox"
+                      checked={checkedIds.has(index)}
+                      onChange={() => toggleOne(index)}
+                    />
+                  </label>
+
+                  {/* 상품 정보 */}
                   <div className="item-info">
                     <div className="up">
                       <div className="list-img">
@@ -65,66 +160,119 @@ const CartPage = () => {
                           alt={item.title}
                         />
                       </div>
+
                       <div className="sameline">
                         <div className="txt">
-                          <p className="item-title">{item.title}</p>
+                          <p className="item-title">PACEFY {item.title}</p>
                           <p className="sub-title">{item.size}</p>
                         </div>
                         <button
                           className="remove"
                           onClick={() => handleDelete(item.id)}
                         >
-                          <i className="fa-solid fa-x"></i>
+                          <i className="fa-solid fa-x" />
                         </button>
                       </div>
                     </div>
 
                     <div className="item-row">
-                      <div className="count">
-                        <button
-                          className="count-btn minus"
-                          onClick={() => handleUpdateQty(item.id, "minus")}
-                        >
-                          -
-                        </button>
-                        <span className="count-num">{item.quantity}</span>
-                        <button
-                          className="count-btn plus"
-                          onClick={() => handleUpdateQty(item.id, "plus")}
-                        >
-                          +
-                        </button>
-                      </div>
                       <div className="prices">
-                        <span className="sum">
-                          {Number(item.price * item.quantity).toLocaleString()}
-                          원
-                        </span>
+                        <div className="count">
+                          <button
+                            className="count-btn"
+                            onClick={() =>
+                              handleUpdateQty(item.id, "minus")
+                            }
+                          >
+                            <i className="fa-solid fa-minus" />
+                          </button>
+                          <span className="count-num">{item.quantity}</span>
+                          <button
+                            className="count-btn"
+                            onClick={() => handleUpdateQty(item.id, "plus")}
+                          >
+                            <i className="fa-solid fa-plus" />
+                          </button>
+                        </div>
+                        <p className="sum">
+                          ₩ {(item.price * item.quantity).toLocaleString()}
+                        </p>
                       </div>
                     </div>
                   </div>
                 </li>
               ))}
             </ul>
+
+            {/* 아래 미니 요약 */}
+            <div className="mini-summary">
+              <div className="row-txt">
+                <span>주문금액</span>
+                <span>₩ {itemsTotal.toLocaleString()}</span>
+              </div>
+              <div className="row-txt">
+                <span>상품할인</span>
+                <span className="red-txt">-₩ {discount.toLocaleString()}</span>
+              </div>
+              <div className="row-txt">
+                <span>
+                  배송비 <span className="gray-txt">(묶음배송 적용)</span>
+                </span>
+                <span>₩ {shippingFee.toLocaleString()}</span>
+              </div>
+              <div className="row-txt total">
+                <span>결제금액</span>
+                <span>₩ {finalTotal.toLocaleString()}</span>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* 오른쪽: 장바구니 요약 */}
-        <section className="cart-right">
+        {/* 오른쪽 : 전체 합계 카드 */}
+        <aside className="cart-right">
           <div className="summary-card">
-            <div className="summary-title">장바구니 요약</div>
+            <h3 className="summary-title">전체 합계</h3>
+
             <div className="summary-row">
-              <span>합계</span>
-              <span>{Number(itemsTotal).toLocaleString()}원</span>
+              <span>상품수</span>
+              <span>{totalQty}개</span>
             </div>
+            <div className="summary-row">
+              <span>주문금액</span>
+              <span>₩ {itemsTotal.toLocaleString()}</span>
+            </div>
+            <div className="summary-row">
+              <span>상품할인</span>
+              <span className="red-txt">-₩ {discount.toLocaleString()}</span>
+            </div>
+            <div className="summary-row dashed">
+              <span>
+                배송비{" "}
+                <span className="gray-txt">(제주/도서 산간 배송비 포함)</span>
+                <span className="mobile-txt">(묶음배송 적용)</span>
+              </span>
+              <span>₩ {shippingFee.toLocaleString()}</span>
+            </div>
+
+            <div className="summary-divider" />
+
+            <div className="summary-total">
+              <span>총 결제금액</span>
+              <span>₩ {finalTotal.toLocaleString()}</span>
+            </div>
+
             <div className="order-btn-wrap">
-              <button className="order-btn">주문하기</button>
+              <button className="order-btn">
+                총 {totalQty}개 | {finalTotal.toLocaleString()}원 주문하기
+              </button>
             </div>
           </div>
-        </section>
+        </aside>
       </div>
     </div>
   );
 };
 
 export default CartPage;
+
+

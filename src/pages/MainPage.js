@@ -3,7 +3,7 @@ import BannerSection2 from "../components/main/BannerSection2";
 import BottomBlog from "../components/main/BottomBlog";
 import CategorySection from "../components/main/CategorySection";
 import Footer from "../components/main/Footer";
-import Header from "../components/main/Header";
+// import Header from "../components/main/Header";
 import MidBlog from "../components/main/MidBlog";
 import ProductSection from "../components/main/ProductSection";
 import ProductSection2 from "../components/main/ProductSection2";

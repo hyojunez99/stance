@@ -1,42 +1,55 @@
 import React, { useState } from "react";
 import ItemData from "../../assets/data/Item.json"; // 상품 데이터
 import "./DetailTop.scss";
-import { useParams, useNavigate } from "react-router-dom"; // useParams로 id 가져오기, useNavigate로 페이지 이동
+import { useParams, useNavigate } from "react-router-dom"; 
 
 const DetailTop = () => {
-  const { id } = useParams(); // URL에서 id 가져오기
-  const product = ItemData.find((item) => item.id === id); // id에 맞는 상품 찾기
+  const { id } = useParams(); 
+  const product = ItemData.find((item) => item.id === id); 
   const navigate = useNavigate();
-  const [mainImg, setMainImg] = useState(product ? product.image : ""); // 상품 이미지 설정
-  const [selectedSize, setSelectedSize] = useState(null); // 사이즈 선택
+  const [mainImg, setMainImg] = useState(product ? product.image : ""); 
+  const [selectedSize, setSelectedSize] = useState(null); 
 
-  if (!product) return <div className="loading">Loading...</div>; // 상품이 없다면 로딩 표시
+  if (!product) return <div className="loading">Loading...</div>; 
 
-  // 사이즈 옵션 배열
   const sizes = [225, 230, 235, 240, 245, 250, 255, 260, 265, 270, 275, 280];
 
-  // 장바구니에 상품 추가하는 함수
+
   const handleAddToCart = () => {
-    if (selectedSize) {
+    if (!selectedSize) {
+      alert("사이즈를 선택하세요.");
+      return;
+      };
       const cartItem = {
         id: product.id,
         title: product.title,
         image: product.image,
-        price: product.price2,
+        price: Number(product.price2),
         quantity: 1,
         size: selectedSize,
-      };
+        
+      }
 
-      // 로컬 스토리지에서 기존 장바구니 가져오기
       let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-      cartItems.push(cartItem); // 새로 추가된 상품 추가
-      localStorage.setItem("cart", JSON.stringify(cartItems)); // 로컬 스토리지에 저장
 
-      // 장바구니 페이지로 이동
+      const existIndex = cartItems.findIndex(
+        (item) => item.id === cartItem.id && item.size ===
+        cartItem.size);
+        if (existIndex !== -1) {
+    const exist = cartItems[existIndex];
+    const prevQty = exist.quantity ?? 0; 
+    cartItems[existIndex] = {
+      ...exist,
+      quantity: prevQty + 1,
+    };
+
+        } else{
+          cartItems.push(cartItem);
+        }
+      localStorage.setItem("cart", JSON.stringify(cartItems)); 
+
+  
       navigate("/cart");
-    } else {
-      alert("사이즈를 선택하세요.");
-    }
   };
 
   return (
@@ -46,13 +59,12 @@ const DetailTop = () => {
         <div className="img-area">
           <div className="main-img-container">
             <img
-              src={require(`../../assets/images/Shoes/${mainImg}`)} // 이미지 경로
+              src={require(`../../assets/images/Shoes/${mainImg}`)} 
               alt={product.title}
               className="main-img"
             />
           </div>
           <div className="sub-imgs">
-            {/* 썸네일 이미지 클릭 시 메인 이미지 변경 */}
             <div
               className={`thumb ${mainImg === product.image ? "active" : ""}`}
               onClick={() => setMainImg(product.image)}
@@ -93,7 +105,6 @@ const DetailTop = () => {
             </div>
           </div>
 
-          {/* 상품 옵션: 색상 및 사이즈 선택 */}
           <div className="product-options">
             <div className="option-section">
               <p className="option-title">색상</p>
@@ -134,7 +145,6 @@ const DetailTop = () => {
             </div>
 
             <div className="btn-group">
-              {/* 장바구니 버튼 클릭 시 상품 추가 */}
               <button className="btn-cart" onClick={handleAddToCart}>
                 장바구니
               </button>
@@ -148,3 +158,5 @@ const DetailTop = () => {
 };
 
 export default DetailTop;
+
+
