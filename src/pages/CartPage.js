@@ -58,11 +58,15 @@ const CartPage = () => {
 
   const handleSelectedDelete = () => {
     const idsToDelete = selectedItems.map((i) => i.id);
+    if (checkedIds.size === 0) {
+    alert("선택된 상품이 없습니다.");
+    return;
+  }
     const updated = cartItems.filter((item) => !idsToDelete.includes(item.id));
     syncCart(updated);
   };
 
-  // ================= 수량 변경 / 삭제 =================
+
   const handleUpdateQty = (id, action) => {
     const updated = cartItems.map((item) => {
       if (item.id !== id) return item;
@@ -84,7 +88,7 @@ const CartPage = () => {
     syncCart(updated);
   };
 
-  // ================= 금액 계산 (선택된 항목 기준) =================
+
   const itemsTotal = useMemo(
     () => selectedItems.reduce((acc, i) => acc + i.price * i.quantity, 0),
     [selectedItems]
@@ -108,7 +112,7 @@ const CartPage = () => {
 
   const finalTotal = itemsTotal - discount + shippingFee;
 
-  // ================= 렌더 =================
+
   return (
     <div className="cart-page">
       <div className="back">
@@ -119,10 +123,10 @@ const CartPage = () => {
       </div>
 
       <div className="cart-layout">
-        {/* 왼쪽 : 목록 */}
+   
         <section className="cart-left">
           <div className="cart-card">
-            {/* 상단 툴바 */}
+
             <div className="cart-toolbar">
               <label className="check">
                 <input
@@ -137,12 +141,12 @@ const CartPage = () => {
               </button>
             </div>
 
-            {/* 리스트 */}
+
             <ul className="cart-list">
               <p className="brand">PACEFY</p>
               {cartItems.map((item, index) => (
                 <li className="cart-item" key={index}>
-                  {/* 개별 체크박스 */}
+         
                   <label className="check item-check">
                     <input
                       type="checkbox"
@@ -151,7 +155,6 @@ const CartPage = () => {
                     />
                   </label>
 
-                  {/* 상품 정보 */}
                   <div className="item-info">
                     <div className="up">
                       <div className="list-img">
@@ -204,7 +207,7 @@ const CartPage = () => {
               ))}
             </ul>
 
-            {/* 아래 미니 요약 */}
+
             <div className="mini-summary">
               <div className="row-txt">
                 <span>주문금액</span>
@@ -228,7 +231,7 @@ const CartPage = () => {
           </div>
         </section>
 
-        {/* 오른쪽 : 전체 합계 카드 */}
+
         <aside className="cart-right">
           <div className="summary-card">
             <h3 className="summary-title">전체 합계</h3>
