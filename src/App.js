@@ -10,7 +10,6 @@ import "./assets/scss/global.scss";
 
 const App = () => {
 
-
   return (
     <HashRouter>
       <Routes>-
