@@ -19,7 +19,6 @@ header {
   margin: 0 auto;
   padding: 0 32px;
   @include flex-layout();
-
   @include mobile {
     height: auto;
     padding: 0 16px;
@@ -46,6 +45,32 @@ header {
     padding-right: 0;
     border-right: none;
     padding: 12px 0;
+  }
+
+  .logoimg {
+    position: relative;
+    width: 148px;
+    height: 30px;
+    background-image: url(../../assets/images/logo/logo.jpg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url(../../assets/images/logo/logo_hover.jpg);
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
   }
 }
 

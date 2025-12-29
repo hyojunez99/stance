@@ -24,7 +24,7 @@ const DetailContent = ({ id }) => {
   } catch (error) {
     // 이미지 경로가 잘못된 경우 오류 처리
     console.error("이미지 로드 오류", error);
-    return <p>이미지 로드 실패</p>;
+    return <p>이미지가 없습니다.</p>;
   }
 
   return (
