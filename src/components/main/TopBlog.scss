@@ -8,6 +8,10 @@
     background-color: var(--Primary-300);
     @include flex-layout(column);
     .txt {
+      &:hover p {
+        color: var(--Text-400);
+        font-weight: bolder;
+      }
       color: var(--Static-white);
       padding: 2rem;
       // gap: 0.75rem;
@@ -25,10 +29,6 @@
           @include flex-layout();
           width: 1.5rem;
           height: 1.5rem;
-        }
-        &:hover {
-          color: var(--Text-400);
-          font-weight: bolder;
         }
       }
     }

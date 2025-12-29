@@ -4,7 +4,7 @@
 #best-seller {
   width: 100%;
   padding-bottom: 5rem;
-  h2 {
+  > h2 {
     padding: 0 3rem 14px;
   }
   .slider-wrap {
@@ -16,6 +16,9 @@
       padding: 0;
       list-style: none;
       li {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
         border-right: 1px solid #0073e5;
         transition: transform 0.5s ease;
         cursor: pointer;
@@ -25,11 +28,13 @@
           animation: float 1.5s ease-in-out infinite;
         }
         .img-wrap {
+          flex: 1;
           position: relative;
           width: 100%;
           aspect-ratio: 1 / 1;
           overflow: hidden;
           img {
+            flex: 1;
             overflow: hidden;
             transition: transform 0.5s ease;
             width: 100%;
@@ -40,7 +45,7 @@
           }
           .num {
             position: absolute;
-            left: 0;
+            left: 16px;
             bottom: -0.5rem;
             font-size: 3rem;
             font-style: italic;
@@ -63,6 +68,7 @@
           }
         }
         .best-txt {
+          height: auto;
           border: 1px solid #0073e5;
           border-left: none;
           border-right: none;
@@ -77,7 +83,6 @@
           }
           > p.sub1 {
             font-size: 1.125rem;
-            min-height: 4rem;
           }
           .price {
             display: flex;
@@ -89,15 +94,19 @@
               gap: 8px;
               .discount {
                 font-size: 1.5rem;
-                font-weight: 700;
+                font-weight: 400;
                 color: #0073e5;
               }
               .sale-price {
-                font-size: clamp(1rem, 2.5vw, 1.25rem);
                 height: auto;
-                // font-size: 1.25rem;
+                // font-size: 1.5rem;
+                font-size: clamp(1rem, 4.5vw, 1.5rem);
                 font-weight: 700;
-                color: #000;
+                > span {
+                  // font-size: 1.125rem;
+                  font-size: clamp(0.875rem, 4vw, 1.125rem);
+                  font-weight: 400;
+                }
               }
             }
           }
@@ -191,22 +200,21 @@
           }
           .best-txt {
             .title {
-              font-size: 0.75rem;
+              font-size: 0.75rem !important;
             }
             .sub1 {
-              font-size: 0.875rem;
+              font-size: 0.875rem !important;
             }
             .price {
-              .original-price {
-                font-size: 0.75rem;
-              }
               .price-row {
                 .discount {
-                  font-size: 1rem;
+                  font-size: 1rem !important;
                   font-weight: 400;
-                }
-                .sale-price {
-                  font-size: 1rem;
+                  .sale-price {
+                    > span {
+                      font-weight: 400;
+                    }
+                  }
                 }
               }
             }
