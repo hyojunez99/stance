@@ -5,7 +5,7 @@ const CartPage = () => {
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
 
-
+  const [previewImg, setPreviewImg] = useState(null); //
   const [cartItems, setCartItems] = useState([]);
 
 
@@ -19,7 +19,7 @@ const CartPage = () => {
     localStorage.setItem("cart", JSON.stringify(items));
   };
 
- 
+
   const [checkedIds, setCheckedIds] = useState(() => new Set());
 
 
@@ -50,13 +50,15 @@ const CartPage = () => {
     });
   };
   const handleSelectedDelete = () => {
-    const idsToDelete = selectedItems.map((i) => i.id);
+  
     if (checkedIds.size === 0) {
-    alert("선택된 상품이 없습니다.");
-    return;
-  }
-    const updated = cartItems.filter((item) => !idsToDelete.includes(item.id));
+      alert("선택된 상품이 없습니다.");
+      return;
+    }
+    const updated = cartItems.filter((_, idx) => !checkedIds.has(idx));
     syncCart(updated);
+
+    setCheckedIds(new Set());
   };
 
 
@@ -108,7 +110,7 @@ const CartPage = () => {
         <p className="cart-title">장바구니</p>
       </div>
       <div className="cart-layout">
-   
+
         <section className="cart-left">
           <div className="cart-card">
 
@@ -131,7 +133,7 @@ const CartPage = () => {
               <p className="brand">PACEFY</p>
               {cartItems.map((item, index) => (
                 <li className="cart-item" key={index}>
-         
+
                   <label className="check item-check">
                     <input
                       type="checkbox"
@@ -146,11 +148,13 @@ const CartPage = () => {
                         <img
                           src={require(`../assets/images/Shoes/${item.image}`)}
                           alt={item.title}
+                          onClick={() => setPreviewImg(item.image)}
+                          style={{ cursor: "zoom-in" }}
                         />
                       </div>
                       <div className="sameline">
                         <div className="txt">
-                          <p className="item-title">PACEFY {item.title}</p>
+                          <p className="item-title">PACEFY {item.sub1}</p>
                           <p className="sub-title">{item.size}</p>
                         </div>
                         <button
@@ -251,7 +255,23 @@ const CartPage = () => {
           </div>
         </aside>
       </div>
+      {previewImg && (
+        <div className="image-modal" onClick={() => setPreviewImg(null)}>
+          <div className="image-box" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={require(`../assets/images/Shoes/${previewImg}`)}
+              alt="preview"
+            />
+            <button className="close-btn" onClick={() => setPreviewImg(null)}>
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
     </div>
+
   );
 };
+
+
 export default CartPage;

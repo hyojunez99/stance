@@ -1,7 +1,7 @@
 import listDate from "../../assets/data/Item.json";
 import "./ProductSection.scss";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,6 +13,14 @@ const ProductSection = () => {
   const totalItems = bestItems.length;
   const visibleCount = 4;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [liked, setLiked] = useState({});
+
+  const toggleLike = (id) => {
+    setLiked((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   const nextSlide = () => setCurrentIndex((prev) => (prev + 2) % totalItems);
   const prevSlide = () =>
@@ -74,8 +82,11 @@ const ProductSection = () => {
                     alt={item.sub1}
                   />
                   <h2 className="num">{item.id}</h2>
-                  <span className="heart">
-                    <FaRegHeart />
+                  <span
+                    className={`heart ${liked[item.id] ? "on" : ""}`}
+                    onClick={() => toggleLike(item.id)}
+                  >
+                    {liked[item.id] ? <FaHeart /> : <FaRegHeart />}
                   </span>
                 </div>
                 <div className="best-txt">

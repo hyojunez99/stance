@@ -53,6 +53,9 @@
             font-size: 28px;
             cursor: pointer;
             color: #aaa;
+            &.on{
+              color: #ff4d6d;
+            }
             &:hover {
               transition: 0.3s;
               color: #ff4d6d;
