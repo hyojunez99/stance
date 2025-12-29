@@ -4,21 +4,25 @@ import "./CartPage.scss";
 const CartPage = () => {
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
-  // 장바구니 목록 (localStorage)
+
+
   const [cartItems, setCartItems] = useState([]);
-  // mount 시 localStorage -> state
+
+
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(saved);
   }, []);
-  // state + localStorage 동기화 헬퍼
+
   const syncCart = (items) => {
     setCartItems(items);
     localStorage.setItem("cart", JSON.stringify(items));
   };
-  // ================= 체크박스 관련 =================
+
+ 
   const [checkedIds, setCheckedIds] = useState(() => new Set());
-  // cartItems 바뀔 때 기본값 = 전체 선택
+
+
   useEffect(() => {
     setCheckedIds(new Set(cartItems.map((_, idx) => idx)));
   }, [cartItems]);
@@ -46,10 +50,16 @@ const CartPage = () => {
     });
   };
   const handleSelectedDelete = () => {
-  const updated = cartItems.filter((_, idx) => !checkedIds.has(idx));
-  syncCart(updated);
-};
-  // ================= 수량 변경 / 삭제 =================
+    const idsToDelete = selectedItems.map((i) => i.id);
+    if (checkedIds.size === 0) {
+    alert("선택된 상품이 없습니다.");
+    return;
+  }
+    const updated = cartItems.filter((item) => !idsToDelete.includes(item.id));
+    syncCart(updated);
+  };
+
+
   const handleUpdateQty = (id, action) => {
     const updated = cartItems.map((item) => {
       if (item.id !== id) return item;
@@ -67,7 +77,8 @@ const CartPage = () => {
     const updated = cartItems.filter((item) => item.id !== id);
     syncCart(updated);
   };
-  // ================= 금액 계산 (선택된 항목 기준) =================
+
+
   const itemsTotal = useMemo(
     () => selectedItems.reduce((acc, i) => acc + i.price * i.quantity, 0),
     [selectedItems]
@@ -86,7 +97,8 @@ const CartPage = () => {
     return 0;
   }, [itemsTotal]);
   const finalTotal = itemsTotal - discount + shippingFee;
-  // ================= 렌더 =================
+
+
   return (
     <div className="cart-page">
       <div className="back">
@@ -96,10 +108,10 @@ const CartPage = () => {
         <p className="cart-title">장바구니</p>
       </div>
       <div className="cart-layout">
-        {/* 왼쪽 : 목록 */}
+   
         <section className="cart-left">
           <div className="cart-card">
-            {/* 상단 툴바 */}
+
             <div className="cart-toolbar">
               <label className="check">
                 <input
@@ -113,12 +125,13 @@ const CartPage = () => {
                 선택삭제
               </button>
             </div>
-            {/* 리스트 */}
+
+
             <ul className="cart-list">
               <p className="brand">PACEFY</p>
               {cartItems.map((item, index) => (
                 <li className="cart-item" key={index}>
-                  {/* 개별 체크박스 */}
+         
                   <label className="check item-check">
                     <input
                       type="checkbox"
@@ -126,7 +139,7 @@ const CartPage = () => {
                       onChange={() => toggleOne(index)}
                     />
                   </label>
-                  {/* 상품 정보 */}
+
                   <div className="item-info">
                     <div className="up">
                       <div className="list-img">
@@ -176,7 +189,8 @@ const CartPage = () => {
                 </li>
               ))}
             </ul>
-            {/* 아래 미니 요약 */}
+
+
             <div className="mini-summary">
               <div className="row-txt">
                 <span>주문금액</span>
@@ -199,7 +213,8 @@ const CartPage = () => {
             </div>
           </div>
         </section>
-        {/* 오른쪽 : 전체 합계 카드 */}
+
+
         <aside className="cart-right">
           <div className="summary-card">
             <h3 className="summary-title">전체 합계</h3>

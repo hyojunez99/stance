@@ -1,13 +1,13 @@
 @use "../assets/scss/mixins" as *;
 @use "../assets/scss/fonts" as *;
 @use "../assets/scss/variables" as *;
-// ==================== 공통 레이아웃 ====================
+
 .cart-page {
   margin: 0 auto;
   max-width: 1024px;
   background: var(--Surface-100);
 }
-// 상단 : 뒤로가기 + 타이틀
+
 .back {
   padding: 1rem;
   @include flex-layout(row, flex-start, center, 1rem);
@@ -39,7 +39,7 @@
     @include subtitle-L();
   }
 }
-// 본문 레이아웃 : 리스트 + 합계 카드
+
 .cart-layout {
   @include flex-layout(row, space-between, flex-start, 3rem);
   @include mobile {
@@ -51,7 +51,7 @@
     width: 100%;
   }
 }
-// ==================== 왼쪽 : 장바구니 리스트 ====================
+
 .cart-card {
   border: 1px solid var(--Border-200);
   background: var(--Static-white);
@@ -60,7 +60,7 @@
   @include mobile {
     overflow: visible;
   }
-  // 상단 툴바 (전체 선택 / 선택삭제)
+
   .cart-toolbar {
     @include flex-layout(row, space-between, center, 1rem);
     padding: 0.5rem 1rem;
@@ -90,7 +90,7 @@
     }
   }
 }
-// 리스트 전체
+
 .cart-list {
   padding: 0.5rem 0;
   .brand {
@@ -117,7 +117,7 @@
     }
   }
 }
-// 상품 이미지
+
 .list-img {
   flex: 0 0 68px;
   width: 68px;
@@ -132,7 +132,7 @@
     object-position: center;
   }
 }
-// 상품 정보 + 수량/가격
+
 .item-info {
   width: 100%;
   min-width: 0;
@@ -152,7 +152,7 @@
     color: var(--Text-300);
   }
 }
-// 수량 / 가격 줄
+
 .item-row {
   @include flex-layout(row, space-between, center, 0.8rem);
   .count {
@@ -201,7 +201,7 @@
     }
   }
 }
-// 아이템 우측 X 버튼
+
 .remove {
   border: none;
   background: none;
@@ -210,7 +210,7 @@
     color: var(--Text-200);
   }
 }
-// 리스트 하단 미니 요약
+
 .mini-summary {
   padding: 14px 16px;
   border-top: 1px solid #E4E7EC;
@@ -228,7 +228,7 @@
     }
   }
 }
-// ==================== 오른쪽 : 전체 합계 카드 ====================
+
 .cart-right {
   position: sticky;
   top: 60px;
@@ -305,11 +305,11 @@
     }
   }
 }
-// ==================== 공통 텍스트 색 ====================
+
 .red-txt {
   color: var(--System-error);
 }
 .gray-txt {
-  margin-left: 4px;
+  margin-left: 0.25rem;
   color: var(--Text-200);
 }
