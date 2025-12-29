@@ -21,7 +21,6 @@ const MainPage = () => {
       <MidBlog />
       <ProductSection2 />
       <BottomBlog />
-      <Footer />
     </div>
   );
 };

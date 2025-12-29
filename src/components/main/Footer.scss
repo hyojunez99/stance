@@ -40,9 +40,15 @@
           @include flex-layout(row, flex-start, center, 0.5rem);
           margin-bottom: 2rem;
           margin-top: -0.4rem;
+          .footer-logo{
+            display: none;
+          }
 
           @include mobile {
             display: flex;
+            .footer-logo{
+              display: inline-block;
+            }
           }
 
           .logo-label {
