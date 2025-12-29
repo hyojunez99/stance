@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <HashRouter>
-      <Routes>
+      <Routes>-
         <Route element={<Layout />}>
           <Route path="/" element={<MainPage />} />
           <Route
