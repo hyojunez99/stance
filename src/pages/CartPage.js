@@ -6,25 +6,24 @@ const CartPage = () => {
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
 
-  // 장바구니 목록 (localStorage)
+
   const [cartItems, setCartItems] = useState([]);
 
-  // mount 시 localStorage -> state
+
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(saved);
   }, []);
 
-  // state + localStorage 동기화 헬퍼
   const syncCart = (items) => {
     setCartItems(items);
     localStorage.setItem("cart", JSON.stringify(items));
   };
 
-  // ================= 체크박스 관련 =================
+ 
   const [checkedIds, setCheckedIds] = useState(() => new Set());
 
-  // cartItems 바뀔 때 기본값 = 전체 선택
+
   useEffect(() => {
     setCheckedIds(new Set(cartItems.map((_, idx) => idx)));
   }, [cartItems]);
