@@ -8,9 +8,11 @@ const Header = () => {
     <header>
       <div className="header-inner">
         {/* 로고 */}
-        <h1 className="logo">
-          <Link to="/">PACEY</Link>
-        </h1>
+        <div className="logo">
+          <Link to="/">
+            <div className="logoimg"></div>
+          </Link>
+        </div>
 
         {/* 네비게이션 */}
         <Gnb />
