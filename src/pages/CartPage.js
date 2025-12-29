@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CartPage.scss";
-
 const CartPage = () => {
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
@@ -27,17 +26,14 @@ const CartPage = () => {
   useEffect(() => {
     setCheckedIds(new Set(cartItems.map((_, idx) => idx)));
   }, [cartItems]);
-
   const allChecked = useMemo(() => {
     if (cartItems.length === 0) return false;
     return cartItems.every((_, idx) => checkedIds.has(idx));
   }, [cartItems, checkedIds]);
-
   const selectedItems = useMemo(
     () => cartItems.filter((_, idx) => checkedIds.has(idx)),
     [cartItems, checkedIds]
   );
-
   const toggleAll = () => {
     if (allChecked) {
       setCheckedIds(new Set());
@@ -45,7 +41,6 @@ const CartPage = () => {
       setCheckedIds(new Set(cartItems.map((_, idx) => idx)));
     }
   };
-
   const toggleOne = (index) => {
     setCheckedIds((prev) => {
       const next = new Set(prev);
@@ -54,7 +49,6 @@ const CartPage = () => {
       return next;
     });
   };
-
   const handleSelectedDelete = () => {
     const idsToDelete = selectedItems.map((i) => i.id);
     if (checkedIds.size === 0) {
@@ -69,7 +63,6 @@ const CartPage = () => {
   const handleUpdateQty = (id, action) => {
     const updated = cartItems.map((item) => {
       if (item.id !== id) return item;
-
       if (action === "plus") {
         return { ...item, quantity: item.quantity + 1 };
       }
@@ -78,10 +71,8 @@ const CartPage = () => {
       }
       return item;
     });
-
     syncCart(updated);
   };
-
   const handleDelete = (id) => {
     const updated = cartItems.filter((item) => item.id !== id);
     syncCart(updated);
@@ -92,23 +83,19 @@ const CartPage = () => {
     () => selectedItems.reduce((acc, i) => acc + i.price * i.quantity, 0),
     [selectedItems]
   );
-
   const totalQty = useMemo(
     () => selectedItems.reduce((acc, i) => acc + i.quantity, 0),
     [selectedItems]
   );
-
   const shippingFee = useMemo(() => {
     if (itemsTotal === 0) return 0;
     return 3000;
   }, [itemsTotal]);
-
   // 30만원 이상 3만원 할인
   const discount = useMemo(() => {
     if (itemsTotal >= 300000) return 30000;
     return 0;
   }, [itemsTotal]);
-
   const finalTotal = itemsTotal - discount + shippingFee;
 
 
@@ -120,7 +107,6 @@ const CartPage = () => {
         </p>
         <p className="cart-title">장바구니</p>
       </div>
-
       <div className="cart-layout">
    
         <section className="cart-left">
@@ -162,7 +148,6 @@ const CartPage = () => {
                           alt={item.title}
                         />
                       </div>
-
                       <div className="sameline">
                         <div className="txt">
                           <p className="item-title">PACEFY {item.title}</p>
@@ -176,7 +161,6 @@ const CartPage = () => {
                         </button>
                       </div>
                     </div>
-
                     <div className="item-row">
                       <div className="prices">
                         <div className="count">
@@ -234,7 +218,6 @@ const CartPage = () => {
         <aside className="cart-right">
           <div className="summary-card">
             <h3 className="summary-title">전체 합계</h3>
-
             <div className="summary-row">
               <span>상품수</span>
               <span>{totalQty}개</span>
@@ -255,14 +238,11 @@ const CartPage = () => {
               </span>
               <span>₩ {shippingFee.toLocaleString()}</span>
             </div>
-
             <div className="summary-divider" />
-
             <div className="summary-total">
               <span>총 결제금액</span>
               <span>₩ {finalTotal.toLocaleString()}</span>
             </div>
-
             <div className="order-btn-wrap">
               <button className="order-btn">
                 총 {totalQty}개 | {finalTotal.toLocaleString()}원 주문하기
@@ -274,7 +254,4 @@ const CartPage = () => {
     </div>
   );
 };
-
 export default CartPage;
-
-
