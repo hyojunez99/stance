@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import listDate from "../../assets/data/Item.json";
 import "./ProductSection2.scss";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -12,6 +12,14 @@ gsap.registerPlugin(ScrollTrigger);
 const ProductSection2 = () => {
   const navigate = useNavigate();
   const bestItems = listDate.filter((item) => item.category === "pick");
+
+  const [liked, setLiked] = useState({});
+  const toggleLike = (id) => {
+    setLiked((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   const calculateDiscount = (price1, price2) => {
     return Math.floor(((price1 - price2) / price1) * 100);
@@ -64,8 +72,14 @@ const ProductSection2 = () => {
                   src={require(`../../assets/images/Shoes/${item.image}`)}
                   alt={item.sub1}
                 />
-                <span className="heart">
-                  <FaRegHeart />
+                <span
+                  className={`heart ${liked[item.id] ? "on" : ""}`}
+                  onClick={(e) => {
+                    e.stopPropagation();      // 👈 li 클릭(상세페이지 이동) 막기
+                    toggleLike(item.id);
+                  }}
+                >
+                  {liked[item.id] ? <FaHeart /> : <FaRegHeart />}
                 </span>
               </div>
               <div className="best-txt">

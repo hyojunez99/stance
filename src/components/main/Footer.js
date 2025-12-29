@@ -9,7 +9,7 @@ function Footer() {
       <div className="footer-inner">
         <div className="section brand">
           <div className="logo-img">
-            <span className="logo-label">로고</span>
+            {/* <span className="logo-label"><img src={logoImg} alt="luckydori 로고 이미지"/></span> */}
             <div className="footer-logo">PACEY</div>
           </div>
           <p className="tap"onClick={()=> setIsDescOpen(prev => !prev)}>PACEY{""}<span className="tap-arrow">{isDescOpen ? "∧" : "∨"}</span></p>

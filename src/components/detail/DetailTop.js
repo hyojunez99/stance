@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import ItemData from "../../assets/data/Item.json"; // 상품 데이터
 import "./DetailTop.scss";
-import { useParams, useNavigate } from "react-router-dom"; 
+import { useParams, useNavigate } from "react-router-dom";
 
 const DetailTop = () => {
-  const { id } = useParams(); 
-  const product = ItemData.find((item) => item.id === id); 
+  const { id } = useParams();
+  const product = ItemData.find((item) => item.id === id);
   const navigate = useNavigate();
-  const [mainImg, setMainImg] = useState(product ? product.image : ""); 
-  const [selectedSize, setSelectedSize] = useState(null); 
+  const [mainImg, setMainImg] = useState(product ? product.image : "");
+  const [selectedSize, setSelectedSize] = useState(null);
 
-  if (!product) return <div className="loading">Loading...</div>; 
+  if (!product) return <div className="loading">Loading...</div>;
 
   const sizes = [225, 230, 235, 240, 245, 250, 255, 260, 265, 270, 275, 280];
 
@@ -19,37 +19,39 @@ const DetailTop = () => {
     if (!selectedSize) {
       alert("사이즈를 선택하세요.");
       return;
-      };
-      const cartItem = {
-        id: product.id,
-        title: product.title,
-        image: product.image,
-        price: Number(product.price2),
-        quantity: 1,
-        size: selectedSize,
-        
-      }
-
-      let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-
-      const existIndex = cartItems.findIndex(
-        (item) => item.id === cartItem.id && item.size ===
-        cartItem.size);
-        if (existIndex !== -1) {
-    const exist = cartItems[existIndex];
-    const prevQty = exist.quantity ?? 0; 
-    cartItems[existIndex] = {
-      ...exist,
-      quantity: prevQty + 1,
     };
+    const cartItem = {
+      id: product.id,
+      title: product.title,
+      sub1: product.sub1,
+      image: product.image,
+      price: Number(product.price2),
+      quantity: 1,
+      size: selectedSize,
 
-        } else{
-          cartItems.push(cartItem);
-        }
-      localStorage.setItem("cart", JSON.stringify(cartItems)); 
+    }
 
-  
-      navigate("/cart");
+    let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existIndex = cartItems.findIndex(
+      (item) => item.id === cartItem.id && item.size ===
+        cartItem.size);
+    if (existIndex !== -1) {
+      const exist = cartItems[existIndex];
+      const prevQty = exist.quantity ?? 0;
+      cartItems[existIndex] = {
+        ...exist,
+        ...cartItem,
+        quantity: prevQty + 1,
+      };
+
+    } else {
+      cartItems.push(cartItem);
+    }
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+
+
+    navigate("/cart");
   };
 
   return (
@@ -59,7 +61,7 @@ const DetailTop = () => {
         <div className="img-area">
           <div className="main-img-container">
             <img
-              src={require(`../../assets/images/Shoes/${mainImg}`)} 
+              src={require(`../../assets/images/Shoes/${mainImg}`)}
               alt={product.title}
               className="main-img"
             />

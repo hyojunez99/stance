@@ -47,6 +47,9 @@
         cursor: pointer;
         color: #aaa;
         cursor: pointer;
+        &.on{
+              color: #ff4d6d;
+            }
         &:hover {
           transition: 0.3s;
           color: #ff4d6d;
