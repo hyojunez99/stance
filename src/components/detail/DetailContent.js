@@ -10,7 +10,7 @@ const DetailContent = ({ id }) => {
   if (!product) return <p>상품을 찾을 수 없습니다.</p>;
 
   // 첫 번째 이미지 한 개만 보여주기
-  const firstImage = product.detailimage ? product.detailimage[3] : null;
+  const firstImage = product.detailimage ? product.detailimage[4] : null;
 
   // 이미지 경로가 존재하는지 확인
   if (!firstImage) {
