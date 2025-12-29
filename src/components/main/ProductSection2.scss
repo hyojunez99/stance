@@ -90,6 +90,10 @@
               font-size: 1.25rem;
               font-weight: 700;
               color: #000;
+              > span {
+                font-size: 1.125rem;
+                font-weight: 400;
+              }
             }
           }
         }
@@ -180,6 +184,10 @@
                 font-weight: 400;
               }
               .sale-price {
+                >span{
+                  font-size: 0.875rem;
+                  font-weight: 400;
+                }
                 font-size: 1rem;
                 font-weight: 700;
               }

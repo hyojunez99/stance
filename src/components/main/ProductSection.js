@@ -85,7 +85,8 @@ const ProductSection = () => {
                     <div className="price-row">
                       <span className="discount">{discountPercentage}%</span>
                       <span className="sale-price">
-                        {Number(item.price2).toLocaleString()}원
+                        {Number(item.price2).toLocaleString()}
+                        <span>원</span>
                       </span>
                     </div>
                   </div>
